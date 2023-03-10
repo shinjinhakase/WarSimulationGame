@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Map : MonoBehaviour{
 
-    string mapData = new String[6,11];
+    string[,] mapData = new string[6,11];
     // Start is called before the first frame update
     void Start()
     {
-        foreach(var data in mapData)
-        {
-            data = "grass";    
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 11; j++){
+                mapData[i,j] = "grass";
+            }
         }
     }
 
