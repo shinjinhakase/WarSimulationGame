@@ -8,7 +8,7 @@ public class Map : MonoBehaviour{
     // Start is called before the first frame update
     void Start()
     {
-        for(var data in mapData)
+        foreach(var data in mapData)
         {
             data = "grass";    
         }
