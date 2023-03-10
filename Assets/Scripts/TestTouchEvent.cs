@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class TestTouchEvent : MonoBehaviour
 {
     
-    Vector2 touchPoint;
+    Vector3 touchPoint;
+    [SerializeField] Tilemap map;
     // Start is called before the first frame update
     void Start()
     {
-        touchPoint = new Vector2();
+        touchPoint = new Vector3();
     }
 
     // Update is called once per frame
@@ -17,7 +19,8 @@ public class TestTouchEvent : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0)){
             touchPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(touchPoint.x + "," + touchPoint.y);
+            var getTile = map.WorldToCell(touchPoint);
+            Debug.Log(getTile.x + "," + getTile.y);
         }
     }
 }
