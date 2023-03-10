@@ -16,7 +16,7 @@ public class TestTouchEvent : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){
-            touchPoint = Input.mousePosition;
+            touchPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(touchPoint.x + "," + touchPoint.y);
         }
     }
