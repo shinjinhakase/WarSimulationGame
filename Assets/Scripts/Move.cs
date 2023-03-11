@@ -26,9 +26,11 @@ public class Move : MonoBehaviour
             
             var selectedChara = charaSheet.GetTile(new Vector3Int(getTile.x,getTile.y,0));
             if(selectedChara == null){
+                if(isSelected == true){
+                    Debug.Log("移動先" + getTile.x + "," + getTile.y);
+                }
                 isSelected = false;
             }else if(isSelected == false){
-                Debug.Log("選択された");
                 isSelected = true;
             }
 
