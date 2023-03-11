@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4c9674c0229b6408899e83e67ad9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  init: {x: 5, y: 2, z: 0}
+  cursorMap: {fileID: 1555958140}
+  cursorTile: {fileID: 11400000, guid: e96cad20faf819f4f8e12e2407e5b50c, type: 2}
 --- !u!4 &457427534
 Transform:
   m_ObjectHideFlags: 0
@@ -523,15 +526,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 1e-45
+      e01: 0
+      e02: 2.8750038
+      e03: 2.8750038
+      e10: 0
+      e11: 0
+      e12: 7.75e-43
+      e13: 7.75e-43
+      e20: -101.785034
+      e21: 1e-45
+      e22: -2.2597685e-19
+      e23: 2.1609e+24
+      e30: 4.5904e-41
+      e31: 0
+      e32: 7.75e-43
+      e33: 7.76e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Size: {x: 14, y: 9, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
