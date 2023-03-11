@@ -8,22 +8,18 @@ public class DrawMovableTile : MonoBehaviour
     [SerializeField] Tilemap movableMap;
     [SerializeField] Tile movableTile;
     
-    public void DrawTile(int x,int y){
+    public void DrawTile(List<Vector3Int> cells){
 
-        for(int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
-                movableMap.SetTile(new Vector3Int(i,j,0),movableTile);
-            }
+        foreach(Vector3Int cell in cells){
+            movableMap.SetTile(cell,movableTile);
         }
 
     }
 
-    public void DeleteTile(int x,int y){
+    public void DeleteTile(List<Vector3Int> cells){
 
-        for(int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
-                movableMap.SetTile(new Vector3Int(i,j,0),null);
-            }
+        foreach(Vector3Int cell in cells){
+            movableMap.SetTile(cell,null);
         }
 
     }

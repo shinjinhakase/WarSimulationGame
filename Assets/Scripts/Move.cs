@@ -12,10 +12,16 @@ public class Move : MonoBehaviour
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     [SerializeField] GameObject MapData;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
+    Map mapData;
+    [SerializeField] GameObject DrawMovableTile;
+    DrawMovableTile dmtScript;
+    [SerializeField] Tilemap movableMap;
+
+    void Start(){
+
+        mapData = MapData.GetComponent<Map>();
+        dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
+
     }
 
     // Update is called once per frame
@@ -32,10 +38,13 @@ public class Move : MonoBehaviour
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
                 selectedCharaPosition = touchPointCell;
 
+                //移動可能判定
+                dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
+
             }else{
 
-                Map mapData = MapData.GetComponent<Map>();
-                if(isSelected && isMovable(selectedCharaPosition,touchPointCell,mapData)){
+                //条件を改修する
+                if(isSelected && movableMap.HasTile(touchPointCell)){
                     charaSheet.SetTile(selectedCharaPosition,null);
                     charaSheet.SetTile(touchPointCell,selectedChara);
                     mapData.MoveUnit(selectedCharaPosition,touchPointCell);
@@ -52,14 +61,6 @@ public class Move : MonoBehaviour
 
         Vector3Int searchPosition = new Vector3Int(x,y,0);
         return charaSheet.HasTile(searchPosition);
-
-    }
-
-    bool isMovable(Vector3Int before,Vector3Int after,Map mapData){
-
-        
-        int ManhattanDistance = Mathf.Abs(after.x - before.x) + Mathf.Abs(after.y - before.y);
-        return (ManhattanDistance <= mapData.getUnitData(before).getSpeed())&&(map.HasTile(after));
 
     }
 
