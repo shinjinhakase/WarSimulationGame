@@ -8,6 +8,7 @@ public class Cursor : MonoBehaviour
     Vector3Int currentPosition;
     [SerializeField] Tilemap cursorMap;
     [SerializeField] Tile cursorTile;
+    [SerializeField] Tilemap groundMap;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +41,18 @@ public class Cursor : MonoBehaviour
 
     void cursorMove(Vector3Int before,Vector3Int after){
 
-        cursorMap.SetTile(before,null);
-        cursorMap.SetTile(after,cursorTile);
-        currentPosition = after;
-        Vector3 v = transform.position;
-        v.x = after.x;
-        v.y = after.y;
-        transform.position = v;
+        if(groundMap.HasTile(after)){
+
+            cursorMap.SetTile(before,null);
+            cursorMap.SetTile(after,cursorTile);
+            currentPosition = after;
+            Vector3 v = transform.position;
+            v.x = after.x;
+            v.y = after.y;
+            transform.position = v;
+
+        }
 
     }
+    
 }
