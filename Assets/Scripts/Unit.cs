@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    int speed = 4;
+
+    public int getSpeed(){
+        return speed;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
