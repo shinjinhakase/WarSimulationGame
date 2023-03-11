@@ -32,7 +32,7 @@ public class Move : MonoBehaviour
             Vector3 touchPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int touchPointCell = new Vector3Int(map.WorldToCell(touchPoint).x,map.WorldToCell(touchPoint).y,0);
             
-            if(charaSheet.HasTile(touchPointCell)){
+            if(charaSheet.HasTile(touchPointCell) && isSelected == false){
                 
                 isSelected = true;
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
