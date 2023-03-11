@@ -43,4 +43,8 @@ public class Map : MonoBehaviour{
 
     }
 
+    public Unit getUnitData(Vector3Int position){
+        return unitData[position.x,position.y];
+    }
+
 }

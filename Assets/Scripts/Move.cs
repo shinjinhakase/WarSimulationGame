@@ -34,10 +34,10 @@ public class Move : MonoBehaviour
 
             }else{
 
-                if(isSelected){
+                Map mapData = MapData.GetComponent<Map>();
+                if(isSelected && isMovable(selectedCharaPosition,touchPointCell,mapData)){
                     charaSheet.SetTile(selectedCharaPosition,null);
                     charaSheet.SetTile(touchPointCell,selectedChara);
-                    Map mapData = MapData.GetComponent<Map>();
                     mapData.MoveUnit(selectedCharaPosition,touchPointCell);
                 }
                 isSelected = false;
@@ -52,6 +52,13 @@ public class Move : MonoBehaviour
 
         Vector3Int searchPosition = new Vector3Int(x,y,0);
         return charaSheet.HasTile(searchPosition);
+
+    }
+
+    bool isMovable(Vector3Int before,Vector3Int after,Map mapData){
+
+        int ManhattanDistance = Mathf.Abs(after.x - before.x) + Mathf.Abs(after.y - before.y);
+        return ManhattanDistance <= mapData.getUnitData(before).getSpeed();
 
     }
 
