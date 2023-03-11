@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 public class Move : MonoBehaviour
 {
     
-    bool isSelected　= false;
+    bool isSelected = false;
+    Tile selectedChara;
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     
@@ -24,11 +25,17 @@ public class Move : MonoBehaviour
             var touchPointCell = map.WorldToCell(touchPoint);
             
             if(charaSheet.HasTile(new Vector3Int(touchPointCell.x,touchPointCell.y,0))){
+                
                 isSelected = true;
-                Debug.Log("選択された");
+                selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
+
             }else{
+
+                if(isSelected){
+                    charaSheet.SetTile(touchPointCell,selectedChara);
+                }
                 isSelected = false;
-                Debug.Log("選択解除");
+                
             }
 
         }
