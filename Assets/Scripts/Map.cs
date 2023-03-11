@@ -1,20 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Map : MonoBehaviour{
 
-    string[,] mapData = new string[13,11];
-    Unit[,] unitData = new Unit[13,11];
+    public int maxX;
+    public int maxY;
+    string[,] mapData;
+    Unit[,] unitData;
+    [SerializeField] Tilemap groundMap;
+    [SerializeField] Tile ground;
     [SerializeField] GameObject moveTest;
     Move moveScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        mapData = new string[maxX,maxY];
+        unitData = new Unit[maxX,maxY];
         moveScript = moveTest.GetComponent<Move>();
-        for(int i = 0; i < 13; i++){
-            for(int j = 0; j < 11; j++){
+        for(int i = 0; i < maxX; i++){
+            for(int j = 0; j < maxY; j++){
 
+                groundMap.SetTile(new Vector3Int(i,j,0),ground);
+                
                 mapData[i,j] = "grass";
 
                 if(moveScript.isUnitExist(i,j)){
