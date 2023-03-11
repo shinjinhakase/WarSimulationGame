@@ -54,5 +54,9 @@ public class Cursor : MonoBehaviour
         }
 
     }
-    
+
+    public Vector3Int getCurrentPosition(){
+        return currentPosition;
+    }
+
 }

@@ -18,12 +18,18 @@ public class DrawMovableTile : MonoBehaviour
 
     }
 
-    public void DeleteTile(){
+    public void DeleteTile(bool selected){
 
-        foreach(Vector3Int cell in saveTiles){
-            movableMap.SetTile(cell,null);
+        if(selected){
+
+            foreach(Vector3Int cell in saveTiles){
+                movableMap.SetTile(cell,null);
+            }
+
+        }else{
+            return;
         }
-
+        
     }
 
 }

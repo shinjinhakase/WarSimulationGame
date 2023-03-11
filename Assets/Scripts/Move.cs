@@ -16,21 +16,23 @@ public class Move : MonoBehaviour
     [SerializeField] GameObject DrawMovableTile;
     DrawMovableTile dmtScript;
     [SerializeField] Tilemap movableMap;
+    [SerializeField] GameObject Cursor;
+    Cursor cursorScript;
 
     void Start(){
 
         mapData = MapData.GetComponent<Map>();
         dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
+        cursorScript = Cursor.GetComponent<Cursor>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetKeyUp(KeyCode.Space)){
 
-            Vector3 touchPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int touchPointCell = new Vector3Int(map.WorldToCell(touchPoint).x,map.WorldToCell(touchPoint).y,0);
+            Vector3Int touchPointCell = cursorScript.getCurrentPosition();
             
             if(charaSheet.HasTile(touchPointCell) && isSelected == false){
                 
@@ -38,19 +40,20 @@ public class Move : MonoBehaviour
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
                 selectedCharaPosition = touchPointCell;
 
-                //移動可能判定
                 dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
 
             }else{
 
-                //条件を改修する
                 if(isSelected && movableMap.HasTile(touchPointCell)){
+
                     charaSheet.SetTile(selectedCharaPosition,null);
                     charaSheet.SetTile(touchPointCell,selectedChara);
                     mapData.MoveUnit(selectedCharaPosition,touchPointCell);
+                    
                 }
+
+                dmtScript.DeleteTile(isSelected);
                 isSelected = false;
-                dmtScript.DeleteTile();
 
             }
 
@@ -64,5 +67,5 @@ public class Move : MonoBehaviour
         return charaSheet.HasTile(searchPosition);
 
     }
-    
+
 }
