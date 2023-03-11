@@ -8,6 +8,7 @@ public class Move : MonoBehaviour
     
     bool isSelected = false;
     Tile selectedChara;
+    Vector3Int selectedCharaPosition;
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     
@@ -28,14 +29,16 @@ public class Move : MonoBehaviour
                 
                 isSelected = true;
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
+                selectedCharaPosition = new Vector3Int(touchPointCell.x,touchPointCell.y,0);
 
             }else{
 
                 if(isSelected){
+                    charaSheet.SetTile(selectedCharaPosition,null);
                     charaSheet.SetTile(touchPointCell,selectedChara);
                 }
                 isSelected = false;
-                
+
             }
 
         }
