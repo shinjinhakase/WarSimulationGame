@@ -57,8 +57,9 @@ public class Move : MonoBehaviour
 
     bool isMovable(Vector3Int before,Vector3Int after,Map mapData){
 
+        
         int ManhattanDistance = Mathf.Abs(after.x - before.x) + Mathf.Abs(after.y - before.y);
-        return ManhattanDistance <= mapData.getUnitData(before).getSpeed();
+        return (ManhattanDistance <= mapData.getUnitData(before).getSpeed())&&(map.HasTile(after));
 
     }
 
