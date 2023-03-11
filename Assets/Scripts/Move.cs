@@ -50,6 +50,7 @@ public class Move : MonoBehaviour
                     mapData.MoveUnit(selectedCharaPosition,touchPointCell);
                 }
                 isSelected = false;
+                dmtScript.DeleteTile();
 
             }
 

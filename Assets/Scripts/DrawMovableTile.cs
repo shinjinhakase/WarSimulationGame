@@ -7,18 +7,20 @@ public class DrawMovableTile : MonoBehaviour
 {
     [SerializeField] Tilemap movableMap;
     [SerializeField] Tile movableTile;
+    List<Vector3Int> saveTiles;
     
     public void DrawTile(List<Vector3Int> cells){
 
+        saveTiles = cells;
         foreach(Vector3Int cell in cells){
             movableMap.SetTile(cell,movableTile);
         }
 
     }
 
-    public void DeleteTile(List<Vector3Int> cells){
+    public void DeleteTile(){
 
-        foreach(Vector3Int cell in cells){
+        foreach(Vector3Int cell in saveTiles){
             movableMap.SetTile(cell,null);
         }
 
