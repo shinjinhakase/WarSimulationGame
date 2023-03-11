@@ -12,6 +12,7 @@ public class Move : MonoBehaviour
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     [SerializeField] GameObject MapData;
+    [SerializeField] Tile movableTile;
     
     // Start is called before the first frame update
     void Start()
