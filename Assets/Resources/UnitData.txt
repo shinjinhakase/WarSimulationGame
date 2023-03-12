@@ -1,0 +1,7 @@
+villager,0,2
+villager,0,5
+villager,0,8
+villager,3,5
+barbarian,9,3
+barbarian,9,5
+barbarian,9,7
