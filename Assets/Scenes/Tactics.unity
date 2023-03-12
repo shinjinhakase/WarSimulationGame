@@ -155,6 +155,7 @@ MonoBehaviour:
   init: {x: 5, y: 2, z: 0}
   cursorMap: {fileID: 1555958140}
   cursorTile: {fileID: 11400000, guid: e96cad20faf819f4f8e12e2407e5b50c, type: 2}
+  groundMap: {fileID: 1977010126}
 --- !u!4 &457427534
 Transform:
   m_ObjectHideFlags: 0
@@ -254,6 +255,7 @@ MonoBehaviour:
   MapData: {fileID: 618476904}
   DrawMovableTile: {fileID: 839221466}
   movableMap: {fileID: 1416578084}
+  Cursor: {fileID: 457427532}
 --- !u!4 &664795664
 Transform:
   m_ObjectHideFlags: 0
