@@ -17,6 +17,8 @@ public class Map : MonoBehaviour{
     [SerializeField] Tilemap unitMap;
     [SerializeField] Tile villager;
     [SerializeField] Tile barbarian;
+    [SerializeField] GameObject PlayerManager;
+    PlayerManager pmScript;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,10 @@ public class Map : MonoBehaviour{
         mapData = new string[maxX,maxY];
         unitData = new Unit[maxX,maxY];
         moveScript = moveTest.GetComponent<Move>();
+        pmScript = PlayerManager.GetComponent<PlayerManager>();
 
+        List<Unit> playerUnits=new List<Unit>();
+        List<Unit> cpuUnits = new List<Unit>();
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 
@@ -42,9 +47,11 @@ public class Map : MonoBehaviour{
                     switch(unitData[i,j].getTeam()){
 
                         case "villager":
+                            playerUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),villager);
                         break;
                         case "barbarian":
+                            cpuUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),barbarian);
                         break;
 
@@ -55,6 +62,8 @@ public class Map : MonoBehaviour{
                 }
 
             }
+
+            pmScript.SetUp(playerUnits,cpuUnits);
 
         }
 
