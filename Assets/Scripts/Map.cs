@@ -17,8 +17,8 @@ public class Map : MonoBehaviour{
     [SerializeField] Tilemap unitMap;
     [SerializeField] Tile villager;
     [SerializeField] Tile barbarian;
-    [SerializeField] GameObject PlayerManager;
-    PlayerManager pmScript;
+    [SerializeField] GameObject TurnManager;
+    TurnManager tmScript;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class Map : MonoBehaviour{
         mapData = new string[maxX,maxY];
         unitData = new Unit[maxX,maxY];
         moveScript = moveTest.GetComponent<Move>();
-        pmScript = PlayerManager.GetComponent<PlayerManager>();
+        tmScript = TurnManager.GetComponent<TurnManager>();
 
         List<Unit> playerUnits=new List<Unit>();
         List<Unit> cpuUnits = new List<Unit>();
@@ -63,7 +63,7 @@ public class Map : MonoBehaviour{
 
             }
 
-            pmScript.SetUp(playerUnits,cpuUnits);
+            tmScript.SetUp(playerUnits,cpuUnits);
 
         }
 
