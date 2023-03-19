@@ -13,37 +13,51 @@ public class Map : MonoBehaviour{
     [SerializeField] Tile ground;
     [SerializeField] GameObject moveTest;
     Move moveScript;
+    TextAsset textAsset;
+    [SerializeField] Tilemap unitMap;
+    [SerializeField] Tile villager;
+    [SerializeField] Tile barbarian;
 
     // Start is called before the first frame update
     void Start()
     {
+        List<Unit> loadUnit = Load();
         
         mapData = new string[maxX,maxY];
         unitData = new Unit[maxX,maxY];
         moveScript = moveTest.GetComponent<Move>();
+
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 
                 groundMap.SetTile(new Vector3Int(i,j,0),ground);
-                
                 mapData[i,j] = "grass";
 
-                if(moveScript.isUnitExist(i,j)){
-                    unitData[i,j] = new Unit();
-                }else{
-                    unitData[i,j] = null;
+                if(loadUnit.Count > 0 
+                && loadUnit[0].getPosition().x == i
+                && loadUnit[0].getPosition().y == j){
+
+                    unitData[i,j] = loadUnit[0];
+
+                    switch(unitData[i,j].getTeam()){
+
+                        case "villager":
+                            unitMap.SetTile(new Vector3Int(i,j,0),villager);
+                        break;
+                        case "barbarian":
+                            unitMap.SetTile(new Vector3Int(i,j,0),barbarian);
+                        break;
+
+                    }
+
+                    loadUnit.RemoveAt(0);
+
                 }
 
             }
 
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void MoveUnit(Vector3Int before,Vector3Int after){
@@ -76,6 +90,25 @@ public class Map : MonoBehaviour{
         }
         
         return MovableTileList;
+
+    }
+
+    List<Unit> Load(){
+
+        List<Unit> answer = new List<Unit>();
+
+        string loadText = (Resources.Load("UnitData",typeof(TextAsset)) as TextAsset).text;
+        string[] loadUnit = loadText.Split(char.Parse("\n"));
+
+        for(int i = 0; i < loadUnit.Length; i++){
+
+            string[] UnitData = loadUnit[i].Split(char.Parse(","));
+            Unit unit = new Unit(UnitData);
+            answer.Add(unit);
+
+        }
+
+        return answer;
 
     }
 
