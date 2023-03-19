@@ -30,6 +30,7 @@ public class Map : MonoBehaviour{
         moveScript = moveTest.GetComponent<Move>();
         pmScript = PlayerManager.GetComponent<PlayerManager>();
 
+        List<Unit> playerUnits,cpuUnits = new List<Unit>();
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 
@@ -45,9 +46,11 @@ public class Map : MonoBehaviour{
                     switch(unitData[i,j].getTeam()){
 
                         case "villager":
+                            playerUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),villager);
                         break;
                         case "barbarian":
+                            cpuUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),barbarian);
                         break;
 
@@ -58,6 +61,8 @@ public class Map : MonoBehaviour{
                 }
 
             }
+
+            pmScript.SetUp(playerUnits,cpuUnits);
 
         }
 
