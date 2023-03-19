@@ -30,7 +30,8 @@ public class Map : MonoBehaviour{
         moveScript = moveTest.GetComponent<Move>();
         pmScript = PlayerManager.GetComponent<PlayerManager>();
 
-        List<Unit> playerUnits,cpuUnits = new List<Unit>();
+        List<Unit> playerUnits=new List<Unit>();
+        List<Unit> cpuUnits = new List<Unit>();
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 

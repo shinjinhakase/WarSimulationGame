@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     Player player,cpu;
     
-    void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
+    public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
         player = new Player(playerUnits);
         cpu = new Player(cpuUnits);
