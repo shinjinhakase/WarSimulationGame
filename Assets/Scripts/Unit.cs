@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class Unit
 {
+    string name;
     int speed = 4;
     string team;
+    Vector3Int initPosition;
 
-    public Unit(string team){
-        this.team = team;
+    public Unit(string[] data){
+        this.name = data[0];
+        this.team = data[1];
+        initPosition = new Vector3Int(
+            int.Parse(data[2]),
+            int.Parse(data[3]),
+            0
+        );
+    }
+
+    public string getName(){
+        return name;
     }
 
     public int getSpeed(){
@@ -17,6 +29,10 @@ public class Unit
 
     public string getTeam(){
         return team;
+    }
+
+    public Vector3Int getPosition(){
+        return initPosition;
     }
 
 }

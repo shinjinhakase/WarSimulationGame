@@ -1,7 +1,7 @@
-villager,0,2
-villager,0,5
-villager,0,8
-villager,3,5
-barbarian,9,3
-barbarian,9,5
-barbarian,9,7
+村人1,villager,2,0
+蛮族1,barbarian,3,9
+村人2,villager,5,0
+村人4,villager,5,3
+蛮族2,barbarian,5,9
+蛮族3,barbarian,7,9
+村人3,villager,8,0
