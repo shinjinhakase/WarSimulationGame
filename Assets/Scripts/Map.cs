@@ -69,15 +69,6 @@ public class Map : MonoBehaviour{
 
     }
 
-    public void MoveUnit(Vector3Int before,Vector3Int after){
-
-        Unit moveUnit = unitData[before.x,before.y];
-        unitData[after.x,after.y] = moveUnit;
-        unitData[after.x,after.y].Moved();
-        unitData[before.x,before.y] = null;
-
-    }
-
     public void newTurn(string team){
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
