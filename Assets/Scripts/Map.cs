@@ -24,14 +24,10 @@ public class Map : MonoBehaviour{
     void Start()
     {
         List<Unit> loadUnit = Load();
-        
-        mapData = new string[maxX,maxY];
-        unitData = new Unit[maxX,maxY];
+
         moveScript = moveTest.GetComponent<Move>();
         tmScript = TurnManager.GetComponent<TurnManager>();
 
-        List<Unit> playerUnits=new List<Unit>();
-        List<Unit> cpuUnits = new List<Unit>();
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 
@@ -47,11 +43,9 @@ public class Map : MonoBehaviour{
                     switch(unitData[i,j].getTeam()){
 
                         case "villager":
-                            playerUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),villager);
                         break;
                         case "barbarian":
-                            cpuUnits.Add(unitData[i,j]);
                             unitMap.SetTile(new Vector3Int(i,j,0),barbarian);
                         break;
 

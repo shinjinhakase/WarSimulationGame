@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    Player player,cpu;
     [SerializeField] GameObject Map;
     Map mapData;
+    List<Player> playerList;
+
     enum Turn{
         villager,
         barbarian
@@ -20,9 +21,9 @@ public class TurnManager : MonoBehaviour
     
     public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
-        player = new Player(playerUnits);
-        cpu = new Player(cpuUnits);
         turn = Turn.villager;
+        playerList.Add(new Player(playerUnits,"villager"));
+        playerList.Add(new Player(cpuUnits,"barbarian"));
 
     }
 
@@ -42,6 +43,18 @@ public class TurnManager : MonoBehaviour
 
     public string getTurn(){
         return turn.ToString();
+    }
+
+    public Player getPlayer(string teamName){
+
+        foreach(Player person in playerList){
+            if(person.getName() == teamName){
+                return person;
+            }
+        }
+
+        return null;
+
     }
 
 }

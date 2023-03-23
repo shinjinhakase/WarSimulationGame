@@ -34,43 +34,42 @@ public class Move : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyUp(KeyCode.Space)){
-
-            Vector3Int touchPointCell = cursorScript.getCurrentPosition();
-            
-            if(charaSheet.HasTile(touchPointCell) 
-            && isSelected == false
-            && mapData.getUnitData(touchPointCell).getTeam() == tmScript.getTurn()
-            && mapData.getUnitData(touchPointCell).getMoved() == false){
-                
-                isSelected = true;
-                selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
-                selectedCharaPosition = touchPointCell;
-
-                dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
-
-            }else{
-
-                if(isSelected && movableMap.HasTile(touchPointCell)){
-
-                    charaSheet.SetTile(selectedCharaPosition,null);
-                    charaSheet.SetTile(touchPointCell,selectedChara);
-                    mapData.MoveUnit(selectedCharaPosition,touchPointCell);
-                    
-                }
-
-                dmtScript.DeleteTile(isSelected);
-                isSelected = false;
-
-            }
-
+            Select();
         }
-
     }
 
-    public bool isUnitExist(int x,int y){
+    void Select(){
 
-        Vector3Int searchPosition = new Vector3Int(x,y,0);
-        return charaSheet.HasTile(searchPosition);
+        Vector3Int touchPointCell = cursorScript.getCurrentPosition();
+        
+        if(isSelected == false && validTouch(touchPointCell)){
+            
+            isSelected = true;
+            selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
+            selectedCharaPosition = touchPointCell;
+
+            dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
+
+        }else{
+
+            if(isSelected && movableMap.HasTile(touchPointCell)){
+
+                charaSheet.SetTile(selectedCharaPosition,null);
+                charaSheet.SetTile(touchPointCell,selectedChara);
+                mapData.MoveUnit(selectedCharaPosition,touchPointCell);
+                
+            }
+
+            dmtScript.DeleteTile(isSelected);
+            isSelected = false;
+
+        }
+    }
+
+    bool validTouch(Vector3Int touchPointCell){
+
+        string currentTurn = tmScript.getTurn();
+        return tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell);
 
     }
 
