@@ -304,6 +304,7 @@ MonoBehaviour:
   DrawMovableTile: {fileID: 839221466}
   movableMap: {fileID: 1416578084}
   Cursor: {fileID: 457427532}
+  TurnManager: {fileID: 97730220}
 --- !u!4 &664795664
 Transform:
   m_ObjectHideFlags: 0

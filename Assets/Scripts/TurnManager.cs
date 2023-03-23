@@ -29,9 +29,12 @@ public class TurnManager : MonoBehaviour
             }else{
                 turn = Turn.villager;
             }
-            Debug.Log(turn);
         }
         
+    }
+
+    public string getTurn(){
+        return turn.ToString();
     }
 
 }
