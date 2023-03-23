@@ -18,12 +18,15 @@ public class Move : MonoBehaviour
     [SerializeField] Tilemap movableMap;
     [SerializeField] GameObject Cursor;
     Cursor cursorScript;
+    [SerializeField] GameObject TurnManager;
+    TurnManager tmScript;
 
     void Start(){
 
         mapData = MapData.GetComponent<Map>();
         dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
         cursorScript = Cursor.GetComponent<Cursor>();
+        tmScript = TurnManager.GetComponent<TurnManager>();
 
     }
 
@@ -34,7 +37,9 @@ public class Move : MonoBehaviour
 
             Vector3Int touchPointCell = cursorScript.getCurrentPosition();
             
-            if(charaSheet.HasTile(touchPointCell) && isSelected == false){
+            if(charaSheet.HasTile(touchPointCell) 
+            && isSelected == false
+            && mapData.getUnitData(touchPointCell).getTeam() == tmScript.getTurn()){
                 
                 isSelected = true;
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
