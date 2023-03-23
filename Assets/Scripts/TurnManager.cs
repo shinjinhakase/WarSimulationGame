@@ -21,4 +21,17 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    void Update(){
+
+        if(Input.GetKeyUp(KeyCode.T)){
+            if(turn == Turn.villager){
+                turn = Turn.barbarian;
+            }else{
+                turn = Turn.villager;
+            }
+            Debug.Log(turn);
+        }
+        
+    }
+
 }
