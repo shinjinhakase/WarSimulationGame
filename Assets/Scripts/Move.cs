@@ -39,7 +39,8 @@ public class Move : MonoBehaviour
             
             if(charaSheet.HasTile(touchPointCell) 
             && isSelected == false
-            && mapData.getUnitData(touchPointCell).getTeam() == tmScript.getTurn()){
+            && mapData.getUnitData(touchPointCell).getTeam() == tmScript.getTurn()
+            && mapData.getUnitData(touchPointCell).getMoved() == false){
                 
                 isSelected = true;
                 selectedChara = charaSheet.GetTile<Tile>(touchPointCell);

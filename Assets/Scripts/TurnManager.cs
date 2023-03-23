@@ -5,13 +5,18 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     Player player,cpu;
-    
+    [SerializeField] GameObject Map;
+    Map mapData;
     enum Turn{
         villager,
         barbarian
     };
 
     Turn turn;
+
+    void Start(){
+        mapData = Map.GetComponent<Map>();
+    }
     
     public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
@@ -26,8 +31,10 @@ public class TurnManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.T)){
             if(turn == Turn.villager){
                 turn = Turn.barbarian;
+                mapData.newTurn("barbarian");
             }else{
                 turn = Turn.villager;
+                mapData.newTurn("villager");
             }
         }
         

@@ -37,12 +37,16 @@ public class Unit
         return initPosition;
     }
 
-    public Moved(){
+    public void Moved(){
         isMoved = true;
     }
 
-    public resetMove(){
+    public void resetMove(){
         isMoved = false;
+    }
+
+    public bool getMoved(){
+        return isMoved;
     }
 
 }
