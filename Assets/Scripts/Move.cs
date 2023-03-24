@@ -8,7 +8,8 @@ public class Move : MonoBehaviour
     
     bool isSelected = false;
     Tile selectedChara;
-    Vector3Int selectedCharaPosition;
+    Vector3Int beforePosition;
+    Vector3Int afterPosition;
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     [SerializeField] GameObject MapData;
@@ -45,10 +46,9 @@ public class Move : MonoBehaviour
         if(isSelected == false && validTouch(touchPointCell)){
             
             isSelected = true;
-            selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
-            selectedCharaPosition = touchPointCell;
+            beforePosition = touchPointCell;
 
-            dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
+            dmtScript.DrawTile(mapData.isMovableList(beforePosition));
 
         }else{
 
