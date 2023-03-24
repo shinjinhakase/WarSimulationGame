@@ -37,4 +37,8 @@ public class Player
         
     }
 
+    public List<Unit> getAllUnits(){
+        return myUnits;
+    }
+
 }
