@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Map;
     Map mapData;
     List<Player> playerList;
+    [SerializeField] List<String> teamList;
 
     enum Turn{
         villager,
@@ -55,6 +56,18 @@ public class TurnManager : MonoBehaviour
 
         return null;
 
+    }
+
+    public int NumberOfTeam(string teamName){
+
+        for(int i = 0; i < teamList.Count; i++){
+            if(name == teamName){
+                return i;
+            }
+        }
+
+        return null;
+        
     }
 
 }
