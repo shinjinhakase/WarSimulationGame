@@ -94,4 +94,12 @@ public class TurnManager : MonoBehaviour
         return getPlayer(getTurn()).getMyUnits(position);
     }
 
+    public List<Unit> getAllUnits(){
+        List<Unit> answer = new List<Unit>();
+        foreach(Player player in playerList){
+            answer.AddRange(player.getAllUnits());
+        }
+        return answer;
+    }
+
 }
