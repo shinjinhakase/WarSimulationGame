@@ -15,13 +15,6 @@ public class TurnManager : MonoBehaviour
         mapData = Map.GetComponent<Map>();
         turn = 0;
     }
-    
-    public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
-
-        playerList.Add(new Player(playerUnits,"villager"));
-        playerList.Add(new Player(cpuUnits,"barbarian"));
-
-    }
 
     void Update(){
 
