@@ -8,17 +8,8 @@ public class Map : MonoBehaviour{
     public int maxX;
     public int maxY;
     string[,] mapData;
-    Unit[,] unitData;
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tile ground;
-    [SerializeField] GameObject moveTest;
-    Move moveScript;
-    TextAsset textAsset;
-    [SerializeField] Tilemap unitMap;
-    [SerializeField] Tile villager;
-    [SerializeField] Tile barbarian;
-    [SerializeField] GameObject TurnManager;
-    TurnManager tmScript;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +17,6 @@ public class Map : MonoBehaviour{
         List<Unit> loadUnit = Load();
 
         moveScript = moveTest.GetComponent<Move>();
-        tmScript = TurnManager.GetComponent<TurnManager>();
 
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
@@ -61,20 +51,6 @@ public class Map : MonoBehaviour{
 
     }
 
-    public void newTurn(string team){
-        for(int i = 0; i < maxX; i++){
-            for(int j = 0; j < maxY; j++){
-                if(unitData[i,j].getTeam() == team){
-                    unitData[i,j].resetMove();
-                }
-            }
-        }
-    }
-
-    public Unit getUnitData(Vector3Int position){
-        return unitData[position.x,position.y];
-    }
-
     public List<Vector3Int> isMovableList(Vector3Int pickup){
 
         List<Vector3Int> MovableTileList = new List<Vector3Int>();
@@ -93,25 +69,6 @@ public class Map : MonoBehaviour{
         }
         
         return MovableTileList;
-
-    }
-
-    List<Unit> Load(){
-
-        List<Unit> answer = new List<Unit>();
-
-        string loadText = (Resources.Load("UnitData",typeof(TextAsset)) as TextAsset).text;
-        string[] loadUnit = loadText.Split(char.Parse("\n"));
-
-        for(int i = 0; i < loadUnit.Length; i++){
-
-            string[] UnitData = loadUnit[i].Split(char.Parse(","));
-            Unit unit = new Unit(UnitData);
-            answer.Add(unit);
-
-        }
-
-        return answer;
 
     }
 
