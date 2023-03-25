@@ -9,13 +9,6 @@ public class TurnManager : MonoBehaviour
     List<Player> playerList;
     [SerializeField] List<string> teamList;
 
-    enum Turn{
-        villager,
-        barbarian
-    };
-
-    Turn turn;
-
     void Start(){
         mapData = Map.GetComponent<Map>();
     }
