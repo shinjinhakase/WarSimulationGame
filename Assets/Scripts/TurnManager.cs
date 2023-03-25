@@ -33,10 +33,8 @@ public class TurnManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.T)){
             if(turn == Turn.villager){
                 turn = Turn.barbarian;
-                mapData.newTurn("barbarian");
             }else{
                 turn = Turn.villager;
-                mapData.newTurn("villager");
             }
         }
         
@@ -69,5 +67,9 @@ public class TurnManager : MonoBehaviour
         return -1;
 
     }
+
+    public Unit getUnit(Vector3Int position){
+        return getPlayer(getTurn()).getMyUnits(position);
+    } 
 
 }

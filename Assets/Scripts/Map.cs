@@ -8,84 +8,33 @@ public class Map : MonoBehaviour{
     public int maxX;
     public int maxY;
     string[,] mapData;
-    Unit[,] unitData;
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tile ground;
-    [SerializeField] GameObject moveTest;
-    Move moveScript;
-    TextAsset textAsset;
     [SerializeField] Tilemap unitMap;
-    [SerializeField] Tile villager;
-    [SerializeField] Tile barbarian;
-    [SerializeField] GameObject TurnManager;
-    TurnManager tmScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        List<Unit> loadUnit = Load();
-
-        moveScript = moveTest.GetComponent<Move>();
-        tmScript = TurnManager.GetComponent<TurnManager>();
-
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
-
                 groundMap.SetTile(new Vector3Int(i,j,0),ground);
                 mapData[i,j] = "grass";
-
-                if(loadUnit.Count > 0 
-                && loadUnit[0].getPosition().x == i
-                && loadUnit[0].getPosition().y == j){
-
-                    unitData[i,j] = loadUnit[0];
-
-                    switch(unitData[i,j].getTeam()){
-
-                        case "villager":
-                            unitMap.SetTile(new Vector3Int(i,j,0),villager);
-                        break;
-                        case "barbarian":
-                            unitMap.SetTile(new Vector3Int(i,j,0),barbarian);
-                        break;
-
-                    }
-
-                    loadUnit.RemoveAt(0);
-
-                }
-
-            }
-
-        }
-
-    }
-
-    public void newTurn(string team){
-        for(int i = 0; i < maxX; i++){
-            for(int j = 0; j < maxY; j++){
-                if(unitData[i,j].getTeam() == team){
-                    unitData[i,j].resetMove();
-                }
             }
         }
     }
 
-    public Unit getUnitData(Vector3Int position){
-        return unitData[position.x,position.y];
-    }
-
-    public List<Vector3Int> isMovableList(Vector3Int pickup){
+    public List<Vector3Int> isMovableList(Unit moveUnit){
 
         List<Vector3Int> MovableTileList = new List<Vector3Int>();
+        Vector3Int moveUnitPosition = moveUnit.getPosition();
 
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
 
-                int ManhattanDistance = Mathf.Abs(pickup.x - i) + Mathf.Abs(pickup.y - j);
-                if(ManhattanDistance <= getUnitData(pickup).getSpeed()
+                int ManhattanDistance = Mathf.Abs(moveUnitPosition.x - i) + Mathf.Abs(moveUnitPosition.y - j);
+                if(ManhattanDistance <= moveUnit.getSpeed()
                 && groundMap.HasTile(new Vector3Int(i,j,0))
-                && unitData[i,j] == null){
+                && !unitMap.HasTile(new Vector3Int(i,j,0))){
                     MovableTileList.Add(new Vector3Int(i,j,0));
                 }
 
@@ -93,25 +42,6 @@ public class Map : MonoBehaviour{
         }
         
         return MovableTileList;
-
-    }
-
-    List<Unit> Load(){
-
-        List<Unit> answer = new List<Unit>();
-
-        string loadText = (Resources.Load("UnitData",typeof(TextAsset)) as TextAsset).text;
-        string[] loadUnit = loadText.Split(char.Parse("\n"));
-
-        for(int i = 0; i < loadUnit.Length; i++){
-
-            string[] UnitData = loadUnit[i].Split(char.Parse(","));
-            Unit unit = new Unit(UnitData);
-            answer.Add(unit);
-
-        }
-
-        return answer;
 
     }
 
