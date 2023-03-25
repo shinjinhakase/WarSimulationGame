@@ -7,16 +7,18 @@ public class Unit
     string name;
     int speed = 4;
     string team;
-    Vector3Int initPosition;
+    Vector3Int Position;
+    bool isMoved;
 
     public Unit(string[] data){
         this.name = data[0];
         this.team = data[1];
-        initPosition = new Vector3Int(
+        Position = new Vector3Int(
             int.Parse(data[2]),
             int.Parse(data[3]),
             0
         );
+        isMoved = false;
     }
 
     public string getName(){
@@ -32,7 +34,19 @@ public class Unit
     }
 
     public Vector3Int getPosition(){
-        return initPosition;
+        return Position;
+    }
+
+    public void Moved(){
+        isMoved = true;
+    }
+
+    public void resetMove(){
+        isMoved = false;
+    }
+
+    public bool getMoved(){
+        return isMoved;
     }
 
 }

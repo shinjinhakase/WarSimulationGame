@@ -8,11 +8,14 @@ public class Move : MonoBehaviour
     
     bool isSelected = false;
     Tile selectedChara;
-    Vector3Int selectedCharaPosition;
+    Vector3Int beforePosition;
+    Vector3Int afterPosition;
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
     [SerializeField] GameObject MapData;
     Map mapData;
+    [SerializeField] GameObject DrawUnit;
+    DrawUnit duScript;
     [SerializeField] GameObject DrawMovableTile;
     DrawMovableTile dmtScript;
     [SerializeField] Tilemap movableMap;
@@ -27,6 +30,7 @@ public class Move : MonoBehaviour
         dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
         cursorScript = Cursor.GetComponent<Cursor>();
         tmScript = TurnManager.GetComponent<TurnManager>();
+        duScript = DrawUnit.GetComponent<DrawUnit>();
 
     }
 
@@ -34,42 +38,40 @@ public class Move : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyUp(KeyCode.Space)){
-
-            Vector3Int touchPointCell = cursorScript.getCurrentPosition();
-            
-            if(charaSheet.HasTile(touchPointCell) 
-            && isSelected == false
-            && mapData.getUnitData(touchPointCell).getTeam() == tmScript.getTurn()){
-                
-                isSelected = true;
-                selectedChara = charaSheet.GetTile<Tile>(touchPointCell);
-                selectedCharaPosition = touchPointCell;
-
-                dmtScript.DrawTile(mapData.isMovableList(touchPointCell));
-
-            }else{
-
-                if(isSelected && movableMap.HasTile(touchPointCell)){
-
-                    charaSheet.SetTile(selectedCharaPosition,null);
-                    charaSheet.SetTile(touchPointCell,selectedChara);
-                    mapData.MoveUnit(selectedCharaPosition,touchPointCell);
-                    
-                }
-
-                dmtScript.DeleteTile(isSelected);
-                isSelected = false;
-
-            }
-
+            Select();
         }
-
     }
 
-    public bool isUnitExist(int x,int y){
+    void Select(){
 
-        Vector3Int searchPosition = new Vector3Int(x,y,0);
-        return charaSheet.HasTile(searchPosition);
+        Vector3Int touchPointCell = cursorScript.getCurrentPosition();
+        
+        if(isSelected == false && validTouch(touchPointCell)){
+            
+            isSelected = true;
+            beforePosition = touchPointCell;
+
+            dmtScript.DrawTile(mapData.isMovableList(beforePosition));
+
+        }else{
+
+            if(isSelected && movableMap.HasTile(touchPointCell)){
+
+                afterPosition = touchPointCell;
+                duScript.DrawMove(beforePosition,afterPosition);
+                
+            }
+
+            dmtScript.DeleteTile(isSelected);
+            isSelected = false;
+
+        }
+    }
+
+    bool validTouch(Vector3Int touchPointCell){
+
+        string currentTurn = tmScript.getTurn();
+        return tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell);
 
     }
 

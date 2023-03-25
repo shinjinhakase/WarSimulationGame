@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    Player player,cpu;
-    
+    [SerializeField] GameObject Map;
+    Map mapData;
+    List<Player> playerList;
+    [SerializeField] List<string> teamList;
+
     enum Turn{
         villager,
         barbarian
     };
 
     Turn turn;
+
+    void Start(){
+        mapData = Map.GetComponent<Map>();
+    }
     
     public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
-        player = new Player(playerUnits);
-        cpu = new Player(cpuUnits);
         turn = Turn.villager;
+        playerList.Add(new Player(playerUnits,"villager"));
+        playerList.Add(new Player(cpuUnits,"barbarian"));
 
     }
 
@@ -26,8 +33,10 @@ public class TurnManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.T)){
             if(turn == Turn.villager){
                 turn = Turn.barbarian;
+                mapData.newTurn("barbarian");
             }else{
                 turn = Turn.villager;
+                mapData.newTurn("villager");
             }
         }
         
@@ -35,6 +44,30 @@ public class TurnManager : MonoBehaviour
 
     public string getTurn(){
         return turn.ToString();
+    }
+
+    public Player getPlayer(string teamName){
+
+        foreach(Player person in playerList){
+            if(person.getName() == teamName){
+                return person;
+            }
+        }
+
+        return null;
+
+    }
+
+    public int NumberOfTeam(string teamName){
+
+        for(int i = 0; i < teamList.Count; i++){
+            if(name == teamName){
+                return i;
+            }
+        }
+
+        return -1;
+
     }
 
 }
