@@ -153,6 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Map: {fileID: 618476904}
+  teamList:
+  - villager
+  - barbarian
 --- !u!4 &97730222
 Transform:
   m_ObjectHideFlags: 0
@@ -302,6 +305,7 @@ MonoBehaviour:
   map: {fileID: 1977010126}
   charaSheet: {fileID: 1896683997}
   MapData: {fileID: 618476904}
+  DrawUnit: {fileID: 711200150}
   DrawMovableTile: {fileID: 839221466}
   movableMap: {fileID: 1416578084}
   Cursor: {fileID: 457427532}
@@ -320,6 +324,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &711200150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 711200152}
+  - component: {fileID: 711200151}
+  m_Layer: 0
+  m_Name: DrawUnit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &711200151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711200150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a15a06966f570f408d3e6defbdfad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnManager: {fileID: 97730220}
+  UnitMap: {fileID: 1896683997}
+  UnitTileList:
+  - {fileID: 11400000, guid: 34c73fa786d28744f9aa45540681dad7, type: 2}
+  - {fileID: 11400000, guid: a608171861e073144bd2ab8d7aff2c10, type: 2}
+--- !u!4 &711200152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711200150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &839221466
 GameObject:
