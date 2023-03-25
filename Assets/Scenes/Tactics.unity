@@ -253,11 +253,7 @@ MonoBehaviour:
   maxY: 13
   groundMap: {fileID: 1977010126}
   ground: {fileID: 11400000, guid: 7d9e85f94d6efb64fbb1f0808c353008, type: 2}
-  moveTest: {fileID: 664795662}
   unitMap: {fileID: 1896683997}
-  villager: {fileID: 11400000, guid: 34c73fa786d28744f9aa45540681dad7, type: 2}
-  barbarian: {fileID: 11400000, guid: a608171861e073144bd2ab8d7aff2c10, type: 2}
-  TurnManager: {fileID: 97730220}
 --- !u!4 &618476906
 Transform:
   m_ObjectHideFlags: 0
@@ -304,7 +300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 1977010126}
   charaSheet: {fileID: 1896683997}
-  MapData: {fileID: 618476904}
   DrawUnit: {fileID: 711200150}
   DrawMovableTile: {fileID: 839221466}
   movableMap: {fileID: 1416578084}
@@ -405,6 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movableMap: {fileID: 1416578084}
   movableTile: {fileID: 11400000, guid: e98242655d306cd40a0dd1b4ee928753, type: 2}
+  Map: {fileID: 1977010123}
 --- !u!4 &839221468
 Transform:
   m_ObjectHideFlags: 0
