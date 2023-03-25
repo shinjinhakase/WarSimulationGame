@@ -18,6 +18,10 @@ public class DrawUnit : MonoBehaviour
         tmScript = TurnManager.GetComponent<TurnManager>();
     }
 
+    public void SetUp(List<Unit> loadUnitList){
+        arriveUnits = loadUnitList;
+    }
+
     public void getUnits(List<Player> playerList){
 
         arriveUnits.Clear();

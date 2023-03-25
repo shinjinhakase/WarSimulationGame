@@ -9,15 +9,17 @@ public class TurnManager : MonoBehaviour
     List<Player> playerList;
     [SerializeField] List<string> teamList;
     [SerializeField] GameObject LoadUnit;
-    
-
+    [SerializeField] GameObject DrawUnit;
+    DrawUnit drawUnit;
     int turn;
 
     void Start(){
         mapData = Map.GetComponent<Map>();
         playerList = new List<Player>();
         teamList = new List<string>();
+        drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
+        
     }
 
     void InitSetUp(){
@@ -39,6 +41,10 @@ public class TurnManager : MonoBehaviour
         foreach(Unit unit in loadUnitList){
             getPlayer(unit.getTeam()).AddUnit(unit);
         }
+
+        drawUnit.SetUp(loadUnitList);
+        drawUnit.Draw();
+
 
         turn = 0;
 
@@ -74,8 +80,8 @@ public class TurnManager : MonoBehaviour
 
     public int NumberOfTeam(string teamName){
 
-        for(int i = 0; i < teamList.Count; i++){
-            if(name == teamName){
+        for(int i = 0; i < teamList.Count; i++){Debug.Log(teamList[i]+":"+teamName);
+            if(teamList[i] == teamName){
                 return i;
             }
         }
@@ -86,6 +92,6 @@ public class TurnManager : MonoBehaviour
 
     public Unit getUnit(Vector3Int position){
         return getPlayer(getTurn()).getMyUnits(position);
-    } 
+    }
 
 }
