@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoadUnit : MonoBehaviour
 {
-    List<Unit> Load(){
+    public List<Unit> Load(){
 
         List<Unit> answer = new List<Unit>();
 
@@ -21,6 +21,6 @@ public class LoadUnit : MonoBehaviour
 
         return answer;
 
-    } 
+    }
 
 }

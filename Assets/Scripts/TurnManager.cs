@@ -8,12 +8,38 @@ public class TurnManager : MonoBehaviour
     Map mapData;
     List<Player> playerList;
     [SerializeField] List<string> teamList;
+    [SerializeField] GameObject LoadUnit;
+    
 
     int turn;
 
     void Start(){
         mapData = Map.GetComponent<Map>();
+        playerList = new List<Player>();
+        teamList = new List<string>();
+        InitSetUp();
+    }
+
+    void InitSetUp(){
+        LoadUnit loadUnit = LoadUnit.GetComponent<LoadUnit>();
+        List<Unit> loadUnitList = loadUnit.Load();
+
+        foreach(Unit unit in loadUnitList){
+            if(unit.getTeam() != teamList.Contains){
+                teamList.Add(unit.getTeam());
+            }
+        }
+
+        foreach(string teamName in teamList){
+            //Playerを作成
+        }
+
+        foreach(Unit unit in loadUnitList){
+            //Playerごとに割り振り
+        }
+
         turn = 0;
+
     }
 
     void Update(){
