@@ -9,13 +9,15 @@ public class TurnManager : MonoBehaviour
     List<Player> playerList;
     [SerializeField] List<string> teamList;
 
+    int turn;
+
     void Start(){
         mapData = Map.GetComponent<Map>();
+        turn = 0;
     }
     
     public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
-        turn = Turn.villager;
         playerList.Add(new Player(playerUnits,"villager"));
         playerList.Add(new Player(cpuUnits,"barbarian"));
 
@@ -24,17 +26,17 @@ public class TurnManager : MonoBehaviour
     void Update(){
 
         if(Input.GetKeyUp(KeyCode.T)){
-            if(turn == Turn.villager){
-                turn = Turn.barbarian;
+            if(turn < teamList.Count - 1){
+                turn++;
             }else{
-                turn = Turn.villager;
+                turn = 0;
             }
         }
         
     }
 
     public string getTurn(){
-        return turn.ToString();
+        return teamList[turn];
     }
 
     public Player getPlayer(string teamName){
