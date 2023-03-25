@@ -25,7 +25,7 @@ public class TurnManager : MonoBehaviour
         List<Unit> loadUnitList = loadUnit.Load();
 
         foreach(Unit unit in loadUnitList){
-            if(unit.getTeam() != teamList.Contains){
+            if(!teamList.Contains(unit.getTeam())){
                 teamList.Add(unit.getTeam());
             }
         }

@@ -7,9 +7,13 @@ public class Player
     List<Unit> myUnits;
     string team;
     
-    public Player(List<Unit> units,string team){
-        myUnits = units;
+    public Player(string team){
         this.team = team;
+        myUnits = new List<Unit>();
+    }
+
+    public void AddUnit(Unit unit){
+        myUnits.Add(unit);
     }
 
     public Unit getMyUnits(Vector3Int position){
