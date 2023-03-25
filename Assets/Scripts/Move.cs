@@ -12,8 +12,6 @@ public class Move : MonoBehaviour
     Vector3Int afterPosition;
     [SerializeField] Tilemap map;
     [SerializeField] Tilemap charaSheet;
-    [SerializeField] GameObject MapData;
-    Map mapData;
     [SerializeField] GameObject DrawUnit;
     DrawUnit duScript;
     [SerializeField] GameObject DrawMovableTile;
@@ -26,7 +24,6 @@ public class Move : MonoBehaviour
 
     void Start(){
 
-        mapData = MapData.GetComponent<Map>();
         dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
         cursorScript = Cursor.GetComponent<Cursor>();
         tmScript = TurnManager.GetComponent<TurnManager>();
@@ -51,7 +48,7 @@ public class Move : MonoBehaviour
             isSelected = true;
             beforePosition = touchPointCell;
 
-            dmtScript.DrawTile(mapData.isMovableList(beforePosition));
+            dmtScript.DrawTile(tmScript.getUnit(touchPointCell));
 
         }else{
 

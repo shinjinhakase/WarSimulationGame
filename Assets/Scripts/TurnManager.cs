@@ -68,4 +68,8 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    public Unit getUnit(Vector3Int position){
+        return getPlayer(getTurn()).getMyUnits(position);
+    } 
+
 }
