@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
     }
 
     void InitSetUp(){
+
         LoadUnit loadUnit = LoadUnit.GetComponent<LoadUnit>();
         List<Unit> loadUnitList = loadUnit.Load();
 
@@ -31,11 +32,12 @@ public class TurnManager : MonoBehaviour
         }
 
         foreach(string teamName in teamList){
-            //Playerを作成
+            Player player = new Player(teamName);
+            playerList.Add(player);
         }
 
         foreach(Unit unit in loadUnitList){
-            //Playerごとに割り振り
+            getPlayer(unit.getTeam()).AddUnit(unit);
         }
 
         turn = 0;
