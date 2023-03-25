@@ -14,6 +14,8 @@ public class Move : MonoBehaviour
     [SerializeField] Tilemap charaSheet;
     [SerializeField] GameObject MapData;
     Map mapData;
+    [SerializeField] GameObject DrawUnit;
+    DrawUnit duScript;
     [SerializeField] GameObject DrawMovableTile;
     DrawMovableTile dmtScript;
     [SerializeField] Tilemap movableMap;
@@ -28,6 +30,7 @@ public class Move : MonoBehaviour
         dmtScript = DrawMovableTile.GetComponent<DrawMovableTile>();
         cursorScript = Cursor.GetComponent<Cursor>();
         tmScript = TurnManager.GetComponent<TurnManager>();
+        duScript = DrawUnit.GetComponent<DrawUnit>();
 
     }
 
@@ -54,9 +57,8 @@ public class Move : MonoBehaviour
 
             if(isSelected && movableMap.HasTile(touchPointCell)){
 
-                charaSheet.SetTile(selectedCharaPosition,null);
-                charaSheet.SetTile(touchPointCell,selectedChara);
-                mapData.MoveUnit(selectedCharaPosition,touchPointCell);
+                afterPosition = touchPointCell;
+                duScript.DrawMove(beforePosition,afterPosition);
                 
             }
 

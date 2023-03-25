@@ -57,8 +57,6 @@ public class Map : MonoBehaviour{
 
             }
 
-            tmScript.SetUp(playerUnits,cpuUnits);
-
         }
 
     }

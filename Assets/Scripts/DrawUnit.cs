@@ -22,8 +22,8 @@ public class DrawUnit : MonoBehaviour
 
         arriveUnits.Clear();
 
-        foreach(Player player in PlayerList){
-            arriveUnits.Add(player.getAllUnits());
+        foreach(Player player in playerList){
+            arriveUnits.AddRange(player.getAllUnits());
         }
 
     }
@@ -34,6 +34,12 @@ public class DrawUnit : MonoBehaviour
             Vector3Int drawPosition = unit.getPosition();
             UnitMap.SetTile(drawPosition,correctTile);
         }
+    }
+
+    public void DrawMove(Vector3Int beforePosition,Vector3Int afterPosition){
+        Tile MoveTile = (Tile)UnitMap.GetTile(beforePosition);
+        UnitMap.SetTile(afterPosition,MoveTile);
+        UnitMap.SetTile(beforePosition,null);
     }
 
 }

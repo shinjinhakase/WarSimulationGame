@@ -7,7 +7,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject Map;
     Map mapData;
     List<Player> playerList;
-    [SerializeField] List<String> teamList;
+    [SerializeField] List<string> teamList;
 
     enum Turn{
         villager,
@@ -66,8 +66,8 @@ public class TurnManager : MonoBehaviour
             }
         }
 
-        return null;
-        
+        return -1;
+
     }
 
 }
