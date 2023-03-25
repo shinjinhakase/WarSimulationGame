@@ -31,6 +31,7 @@ public class TurnManager : MonoBehaviour
             }else{
                 turn = 0;
             }
+            moveReset();
         }
         
     }
@@ -65,6 +66,12 @@ public class TurnManager : MonoBehaviour
 
     public Unit getUnit(Vector3Int position){
         return getPlayer(getTurn()).getMyUnits(position);
-    } 
+    }
+
+    void moveReset(){
+        foreach(Unit unit in getPlayer(getTurn()).getAllUnits()){
+            unit.resetMove();
+        }
+    }
 
 }

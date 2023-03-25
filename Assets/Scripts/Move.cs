@@ -56,6 +56,7 @@ public class Move : MonoBehaviour
 
                 afterPosition = touchPointCell;
                 duScript.DrawMove(beforePosition,afterPosition);
+                tmScript.getUnit(afterPosition).Moved();
                 
             }
 
