@@ -15,6 +15,7 @@ public class Map : MonoBehaviour{
     // Start is called before the first frame update
     void Start()
     {
+        mapData = new string[maxX,maxY];
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
                 groundMap.SetTile(new Vector3Int(i,j,0),ground);
