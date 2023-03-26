@@ -55,6 +55,7 @@ public class Move : MonoBehaviour
             if(isSelected && movableMap.HasTile(touchPointCell)){
 
                 afterPosition = touchPointCell;
+                tmScript.getUnit(beforePosition).Move(afterPosition);
                 duScript.DrawMove(beforePosition,afterPosition);
                 tmScript.getUnit(afterPosition).Moved();
                 
