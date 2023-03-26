@@ -37,6 +37,10 @@ public class Unit
         return Position;
     }
 
+    public void Move(Vector3Int goal){
+        Position = goal;
+    }
+    
     public void Moved(){
         isMoved = true;
     }

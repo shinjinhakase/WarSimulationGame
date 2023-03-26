@@ -55,7 +55,9 @@ public class Move : MonoBehaviour
             if(isSelected && movableMap.HasTile(touchPointCell)){
 
                 afterPosition = touchPointCell;
+                tmScript.getUnit(beforePosition).Move(afterPosition);
                 duScript.DrawMove(beforePosition,afterPosition);
+                tmScript.getUnit(afterPosition).Moved();
                 
             }
 
@@ -66,10 +68,13 @@ public class Move : MonoBehaviour
     }
 
     bool validTouch(Vector3Int touchPointCell){
-
         string currentTurn = tmScript.getTurn();
-        return tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell);
-
+        if(tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell)){
+            if(!tmScript.getUnit(touchPointCell).getMoved()){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
