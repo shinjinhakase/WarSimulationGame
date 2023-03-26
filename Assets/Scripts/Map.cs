@@ -24,7 +24,7 @@ public class Map : MonoBehaviour{
         }
     }
 
-    public List<Vector3Int> isMovableList(Unit moveUnit){
+    public List<Vector3Int> isMovableList(Unit moveUnit){Debug.Log(moveUnit.getName());
 
         List<Vector3Int> MovableTileList = new List<Vector3Int>();
         Vector3Int moveUnitPosition = moveUnit.getPosition();

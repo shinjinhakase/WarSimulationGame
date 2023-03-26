@@ -67,10 +67,13 @@ public class Move : MonoBehaviour
     }
 
     bool validTouch(Vector3Int touchPointCell){
-
         string currentTurn = tmScript.getTurn();
-        return tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell);
-
+        if(tmScript.getPlayer(currentTurn).isUnitExist(touchPointCell)){
+            if(!tmScript.getUnit(touchPointCell).getMoved()){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
