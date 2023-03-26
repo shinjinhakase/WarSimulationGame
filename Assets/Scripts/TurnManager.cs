@@ -8,18 +8,42 @@ public class TurnManager : MonoBehaviour
     Map mapData;
     List<Player> playerList;
     [SerializeField] List<string> teamList;
-
+    [SerializeField] GameObject LoadUnit;
+    [SerializeField] GameObject DrawUnit;
+    DrawUnit drawUnit;
     int turn;
 
     void Start(){
         mapData = Map.GetComponent<Map>();
-        turn = 0;
+        playerList = new List<Player>();
+        teamList = new List<string>();
+        drawUnit = DrawUnit.GetComponent<DrawUnit>();
+        InitSetUp();
+        
     }
-    
-    public void SetUp(List<Unit> playerUnits,List<Unit> cpuUnits){
 
-        playerList.Add(new Player(playerUnits,"villager"));
-        playerList.Add(new Player(cpuUnits,"barbarian"));
+    void InitSetUp(){
+
+        LoadUnit loadUnit = LoadUnit.GetComponent<LoadUnit>();
+        List<Unit> loadUnitList = loadUnit.Load();
+
+        foreach(Unit unit in loadUnitList){
+            if(!teamList.Contains(unit.getTeam())){
+                teamList.Add(unit.getTeam());
+            }
+        }
+
+        foreach(string teamName in teamList){
+            Player player = new Player(teamName);
+            playerList.Add(player);
+        }
+
+        foreach(Unit unit in loadUnitList){
+            getPlayer(unit.getTeam()).AddUnit(unit);
+        }
+
+        drawUnit.Draw(loadUnitList,this.GetComponent<TurnManager>());
+        turn = 0;
 
     }
 
@@ -55,7 +79,7 @@ public class TurnManager : MonoBehaviour
     public int NumberOfTeam(string teamName){
 
         for(int i = 0; i < teamList.Count; i++){
-            if(name == teamName){
+            if(teamList[i] == teamName){
                 return i;
             }
         }
@@ -72,6 +96,14 @@ public class TurnManager : MonoBehaviour
         foreach(Unit unit in getPlayer(getTurn()).getAllUnits()){
             unit.resetMove();
         }
+    }
+
+    public List<Unit> getAllUnits(){
+        List<Unit> answer = new List<Unit>();
+        foreach(Player player in playerList){
+            answer.AddRange(player.getAllUnits());
+        }
+        return answer;
     }
 
 }
