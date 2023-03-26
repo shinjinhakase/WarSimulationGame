@@ -21,6 +21,8 @@ public class Move : MonoBehaviour
     Cursor cursorScript;
     [SerializeField] GameObject TurnManager;
     TurnManager tmScript;
+    [SerializeField] GameObject SelectUI;
+    ActionSelectUI asuiScript;
 
     void Start(){
 
@@ -28,6 +30,7 @@ public class Move : MonoBehaviour
         cursorScript = Cursor.GetComponent<Cursor>();
         tmScript = TurnManager.GetComponent<TurnManager>();
         duScript = DrawUnit.GetComponent<DrawUnit>();
+        asuiScript = SelectUI.GetComponent<ActionSelectUI>();
 
     }
 
@@ -57,6 +60,7 @@ public class Move : MonoBehaviour
                 afterPosition = touchPointCell;
                 tmScript.getUnit(beforePosition).Move(afterPosition);
                 duScript.DrawMove(beforePosition,afterPosition);
+                asuiScript.Visible();
                 tmScript.getUnit(afterPosition).Moved();
                 
             }

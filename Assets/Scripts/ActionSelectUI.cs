@@ -15,9 +15,8 @@ public class ActionSelectUI : MonoBehaviour
         textMesh.color = new Color32(255,255,255,0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Visible(){
+        spriteRenderer.color = new Color32(255,255,255,255);
+        textMesh.color = new Color32(0,0,0,255);
     }
 }
