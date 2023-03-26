@@ -157,6 +157,7 @@ MonoBehaviour:
   - villager
   - barbarian
   LoadUnit: {fileID: 1119572753}
+  DrawUnit: {fileID: 711200150}
 --- !u!4 &97730222
 Transform:
   m_ObjectHideFlags: 0

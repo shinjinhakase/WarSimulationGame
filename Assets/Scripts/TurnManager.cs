@@ -42,10 +42,7 @@ public class TurnManager : MonoBehaviour
             getPlayer(unit.getTeam()).AddUnit(unit);
         }
 
-        drawUnit.SetUp(loadUnitList);
-        drawUnit.Draw();
-
-
+        drawUnit.Draw(loadUnitList,this.GetComponent<TurnManager>());
         turn = 0;
 
     }
@@ -80,7 +77,7 @@ public class TurnManager : MonoBehaviour
 
     public int NumberOfTeam(string teamName){
 
-        for(int i = 0; i < teamList.Count; i++){Debug.Log(teamList[i]+":"+teamName);
+        for(int i = 0; i < teamList.Count; i++){
             if(teamList[i] == teamName){
                 return i;
             }
