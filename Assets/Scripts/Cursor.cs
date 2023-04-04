@@ -9,6 +9,8 @@ public class Cursor : MonoBehaviour
     [SerializeField] Tilemap cursorMap;
     [SerializeField] Tile cursorTile;
     [SerializeField] Tilemap groundMap;
+    [SerializeField] GameObject ActionMenu;
+    ActionSelectUI amScript;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +21,20 @@ public class Cursor : MonoBehaviour
         v.x = init.x;
         v.y = init.y;
         transform.position = v;
+        amScript = ActionMenu.GetComponent<ActionSelectUI>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!amScript.IsOpen()){
+            getCommand();
+        }
+    }
+
+    void getCommand(){
+
         if(Input.GetKeyUp(KeyCode.UpArrow)){
             cursorMove(currentPosition,new Vector3Int(currentPosition.x,currentPosition.y + 1,0));
         }
@@ -37,6 +47,7 @@ public class Cursor : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.LeftArrow)){
             cursorMove(currentPosition,new Vector3Int(currentPosition.x - 1,currentPosition.y,0));
         }
+
     }
 
     void cursorMove(Vector3Int before,Vector3Int after){

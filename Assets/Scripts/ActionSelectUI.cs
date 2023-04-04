@@ -6,6 +6,7 @@ public class ActionSelectUI : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     TextMesh textMesh;
+    bool isOpen = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +19,17 @@ public class ActionSelectUI : MonoBehaviour
     public void Visible(){
         spriteRenderer.color = new Color32(255,255,255,255);
         textMesh.color = new Color32(0,0,0,255);
+        isOpen = true;
     }
+
+    public void Invisible(){
+        spriteRenderer.color = new Color32(255,255,255,0);
+        textMesh.color = new Color32(255,255,255,0);
+        isOpen = false;
+    }
+
+    public bool IsOpen(){
+        return isOpen;
+    }
+    
 }
