@@ -55,6 +55,14 @@ public class Move : MonoBehaviour
 
         }else{
 
+            if(asuiScript.IsOpen()){
+                
+                dmtScript.DeleteTile(isSelected);
+                isSelected = false;
+                asuiScript.Invisible();
+                
+            }
+            
             if(isSelected && movableMap.HasTile(touchPointCell)){
 
                 afterPosition = touchPointCell;
@@ -65,8 +73,6 @@ public class Move : MonoBehaviour
                 
             }
 
-            dmtScript.DeleteTile(isSelected);
-            isSelected = false;
 
         }
     }
