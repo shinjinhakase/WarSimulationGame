@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LoadUnit : MonoBehaviour
 {
+    [SerializeField] UnitStatusList usl;
+    
     public List<Unit> Load(){
 
         List<Unit> answer = new List<Unit>();
@@ -14,7 +16,7 @@ public class LoadUnit : MonoBehaviour
         for(int i = 0; i < loadUnit.Length; i++){
 
             string[] UnitData = loadUnit[i].Split(char.Parse(","));
-            Unit unit = new Unit(UnitData);
+            Unit unit = new Unit(UnitData,usl);
             answer.Add(unit);
 
         }

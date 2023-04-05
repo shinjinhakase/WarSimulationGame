@@ -9,10 +9,20 @@ public class Unit
     string team;
     Vector3Int Position;
     bool isMoved;
+    int maxHP;
+    int HP;
+    int ATK;
 
-    public Unit(string[] data){
+    public Unit(string[] data,UnitStatusList usl){
         this.name = data[0];
         this.team = data[1];
+        foreach(UnitStatus us in usl.unitStatusList){
+            if(us.team == this.team){
+                maxHP = Random.Range(us.minHP,us.maxHP);
+                HP = maxHP;
+                ATK = Random.Range(us.minATK,us.maxATK);
+            }
+        }
         Position = new Vector3Int(
             int.Parse(data[2]),
             int.Parse(data[3]),
