@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8013a59c43605c94eba31f16ad770c24, type: 3}
   m_Name: USL
   m_EditorClassIdentifier: 
-  unitStatusList: []
+  unitStatusList:
+  - {fileID: 11400000, guid: fb1473e8a5fed9443a5319f06c0fb1ab, type: 2}
+  - {fileID: 11400000, guid: be4f022b41a69be4ba177f52ce4e99e4, type: 2}
