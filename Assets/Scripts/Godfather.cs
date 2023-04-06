@@ -1,15 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 public class Godfather : MonoBehaviour
 {
     public int people;
     List<string> littleChars = new List<string>(){"ャ","ュ","ョ","ァ","ィ","ゥ","ェ","ォ"};
+    List<string> headInvalid = new List<string>(){"ー","ン","ッ"};
 	void Start(){
         
+        /*
         List<List<List<string>>> dataset = DataMoulding();
-        Debug.Log(RandomParam(dataset));
+        string param = RandomParam(dataset);
+
+        string path = Application.dataPath + "/Resources/dataset.txt";
+        File.WriteAllText(path,param);
+        */
+        
+        List<string> testNames = new List<string>();
+        for(int i = 0; i < 100; i++){
+            testNames.Add(GenerateName());
+        }
+        Debug.Log(string.Join("\n",testNames));
 
     }
 
@@ -107,7 +119,7 @@ public class Godfather : MonoBehaviour
             nameList.Add(SplitName(loadTextList[i]));
         }
 
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 9; i++){
             List<List<string>> nameLength = NameLengthList(i,nameList);
             answer.Add(nameLength);
         }
@@ -147,15 +159,93 @@ public class Godfather : MonoBehaviour
                 }
             }
 
+            int sum = 0;
             for(int j = 0; j < charList.Count; j++){
+                sum += pList[j];
                 answer += charList[j] + "," + pList[j].ToString() + "\n";
             }
 
-            answer += "\n";
+            answer += "合計" + sum + "\n";
 
         }
 
         return answer;
+
+    }
+
+    string GenerateName(){
+        
+        string name = "";
+        
+        string loadText = (Resources.Load("dataset",typeof(TextAsset)) as TextAsset).text;
+        string[] paramSplit = loadText.Split(char.Parse("\n"));
+        int generateNameLength = Random.Range(2,8);
+        string startStr = generateNameLength.ToString() + "文字の確率";
+        List<int> probabList = new List<int>();
+        List<string> probabLetter = new List<string>();
+        bool loadFlag = false;
+        int probabSum = 0;
+        for(int i = 0; i < paramSplit.Length; i++){
+            
+            if(loadFlag){
+                if(paramSplit[i].Contains("合計")){
+                    probabSum = int.Parse(paramSplit[i].Replace("合計",""));
+                    break;
+                }
+                probabLetter.Add((paramSplit[i].Split(char.Parse(",")))[0].ToString());
+                probabList.Add(int.Parse((paramSplit[i].Split(char.Parse(",")))[1]));
+            }
+            if(startStr == paramSplit[i]){
+                loadFlag = true;
+            }
+
+        }
+
+        for(int i = 0; i < generateNameLength; i++){
+
+            int decideLetter = Random.Range(0,probabSum);
+            for(int j = 0; j < probabList.Count; j++){
+                decideLetter -= probabList[j];
+                if(decideLetter <= 0){
+                    if(isValidName(name,probabLetter[j],(i == generateNameLength - 1))){
+                        name += probabLetter[j];
+                        break;
+                    }else{
+                        decideLetter = Random.Range(0,probabSum);
+                        j = 0;
+                        continue;
+                    }
+                }
+            }
+
+        }
+
+        return name;
+
+    }
+
+    bool isValidName(string name,string addLetter,bool isLastLetter){
+
+        
+        if(name.Length == 0){
+            if(headInvalid.Contains(addLetter)){
+                return false;
+            }
+        }else if(name.Length >= 2){
+            if(name[name.Length - 1].Equals(name[name.Length - 2]) && name[name.Length - 1].Equals(char.Parse(addLetter))){
+                return false;
+            }else if(headInvalid.Contains(name[name.Length - 1].ToString()) && headInvalid.Contains(addLetter)){
+                return false;
+            }
+        }
+
+        if(isLastLetter){
+            if(addLetter.Equals("ッ")){
+                return false;
+            }
+        }
+
+        return true;
 
     }
 
