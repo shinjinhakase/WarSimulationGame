@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a23313fe02c7444fbedfb4340f8c5c2, type: 3}
   m_Name: VillagerStatus
   m_EditorClassIdentifier: 
-  minHP: 0
-  maxHP: 0
-  minATK: 0
-  maxATK: 0
+  team: 
+  minHP: 8
+  maxHP: 15
+  minATK: 2
+  maxATK: 7
