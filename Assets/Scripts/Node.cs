@@ -21,9 +21,14 @@ public class Node{
         this.status = Status.Nonw;
     }
 
-    public void OpenNode(Node parent,Vector3Int startPosition){
-        this.parent = parent;
-        this.cost = parent.getScore() + 1;
+    public void Open(Node parent,Vector3Int startPosition){
+        if(parent != null){
+            this.parent = parent;
+            this.cost = parent.getScore() + 1;
+        }else{
+            this.parent = null;
+            this.cost = 0;
+        }
         this.manhattan = CalcManhattan(this.position,startPosition);
         this.status = Status.Open;
     }

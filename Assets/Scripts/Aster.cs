@@ -8,9 +8,16 @@ public class Aster : MonoBehaviour
 
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tilemap characterMap;
+    [SerializeField] Vector3Int testVector;
 
     public void CallDebug(){
         List<Node> nodeList = NodeList();
+        foreach(Node node in nodeList){
+            if(testVector == node.getPosition()){
+                node.Open(null,testVector);
+                break;
+            }
+        }
     }
 
     public List<Node> NodeList(){
