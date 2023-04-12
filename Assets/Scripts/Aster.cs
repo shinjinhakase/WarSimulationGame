@@ -9,13 +9,43 @@ public class Aster : MonoBehaviour
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tilemap characterMap;
     [SerializeField] Vector3Int testVector;
+    List<Node> nodeList;
+    Vector3Int startPosition;
 
     public void CallDebug(){
-        List<Node> nodeList = NodeList();
+        nodeList = NodeList();
+        startPosition = testVector;
+        FirstNodeOpen(startPosition);
+        AroundNodeOpen(startPosition);
+        foreach(Node node in OpenNodeList()){
+            Debug.Log(node.getX() + "," + node.getY());
+        }
+    }
+
+    void AroundNodeOpen(Vector3Int baseNodePosition){
+        Vector3Int right = new Vector3Int(baseNodePosition.x + 1,baseNodePosition.y);
+        if(pickupNode(right) != null){
+            pickupNode(right).Open(pickupNode(baseNodePosition),startPosition);
+        }
+        Vector3Int left = new Vector3Int(baseNodePosition.x - 1,baseNodePosition.y);
+        if(pickupNode(left) != null){
+            pickupNode(left).Open(pickupNode(baseNodePosition),startPosition);
+        }
+        Vector3Int up = new Vector3Int(baseNodePosition.x,baseNodePosition.y + 1);
+        if(pickupNode(up) != null){
+            pickupNode(up).Open(pickupNode(baseNodePosition),startPosition);
+        }
+        Vector3Int down = new Vector3Int(baseNodePosition.x,baseNodePosition.y - 1);
+        if(pickupNode(down) != null){
+            pickupNode(down).Open(pickupNode(baseNodePosition),startPosition);
+        }
+    }
+
+    void FirstNodeOpen(Vector3Int startPosition){
         foreach(Node node in nodeList){
-            if(testVector == node.getPosition()){
-                node.Open(null,testVector);
-                break;
+            if(startPosition == node.getPosition()){
+                node.Open(null,startPosition);
+                return;
             }
         }
     }
@@ -73,6 +103,25 @@ public class Aster : MonoBehaviour
 
         return answer;
 
+    }
+
+    Node pickupNode(Vector3Int pickup){
+        foreach(Node node in nodeList){
+            if(pickup == node.getPosition()){
+                return node;
+            }
+        }
+        return null;
+    }
+
+    List<Node> OpenNodeList(){
+        List<Node> answer = new List<Node>();
+        foreach(Node node in nodeList){
+            if(node.isOpened()){
+                answer.Add(node);
+            }
+        }
+        return answer;
     }
 
 }
