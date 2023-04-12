@@ -232,7 +232,7 @@ public class Godfather : MonoBehaviour
                 return false;
             }
         }else if(name.Length >= 2){
-            if(name[name.Length - 1].Equals(name[name.Length - 2]) && name[name.Length - 1].Equals(char.Parse(addLetter))){
+            if(name[name.Length - 1].Equals(name[name.Length - 2]) && name[name.Length - 1].Equals(addLetter)){
                 return false;
             }else if(headInvalid.Contains(name[name.Length - 1].ToString()) && headInvalid.Contains(addLetter)){
                 return false;

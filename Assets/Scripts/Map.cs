@@ -11,6 +11,7 @@ public class Map : MonoBehaviour{
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tile ground;
     [SerializeField] Tilemap unitMap;
+    [SerializeField] GameObject Aster;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Map : MonoBehaviour{
                 mapData[i,j] = "grass";
             }
         }
+        Aster.GetComponent<Aster>().CallDebug();
     }
 
     public List<Vector3Int> isMovableList(Unit moveUnit){
