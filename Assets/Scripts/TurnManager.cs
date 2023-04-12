@@ -19,7 +19,6 @@ public class TurnManager : MonoBehaviour
         teamList = new List<string>();
         drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
-        
     }
 
     void InitSetUp(){
