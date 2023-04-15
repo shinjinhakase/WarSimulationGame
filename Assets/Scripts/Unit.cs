@@ -66,7 +66,10 @@ public class Unit
 
     public void SetTM(TurnManager tm){
         this.tm = tm;
-        tm.ReferenceTest();
+    }
+
+    public void getEnemyTest(){
+        Debug.Log(string.Join(",",tm.EnemyPositionList(this.team)));
     }
 
 }

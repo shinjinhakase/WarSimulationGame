@@ -23,10 +23,6 @@ public class Aster : MonoBehaviour
 
         FirstNodeOpen(startPosition);
         AroundNodeOpen(startPosition);
-
-        Debug.Log("Start:" + startPosition);
-        Debug.Log("Goal:" + goalPosition);
-        Debug.Log("Route:" + string.Join(",",goalNode().Route(new List<Vector3Int>())));
         
     }
 
@@ -35,7 +31,6 @@ public class Aster : MonoBehaviour
         List<Node> openNodeList = OpenNodeList();
         foreach(Node node in openNodeList){
             if(node.getPosition() == goalPosition){
-                Debug.Log("Goal Discovered!!");
                 return node;
             }
         }

@@ -19,6 +19,9 @@ public class TurnManager : MonoBehaviour
         teamList = new List<string>();
         drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
+        foreach(Unit unit in getAllUnits()){
+            unit.getEnemyTest();
+        }
     }
 
     void InitSetUp(){
@@ -105,9 +108,16 @@ public class TurnManager : MonoBehaviour
         }
         return answer;
     }
-
-    public void ReferenceTest(){
-        Debug.Log("参照できてるよ");
+    
+    public List<Vector3Int> EnemyPositionList(string friend){
+        List<Vector3Int> answer = new List<Vector3Int>();
+        List<Unit> allUnits = getAllUnits();
+        foreach(Unit unit in allUnits){
+            if(unit.getTeam() != friend){
+                answer.Add(unit.getPosition());
+            }
+        }
+        return answer;
     }
 
 }
