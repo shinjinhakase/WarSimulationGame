@@ -38,6 +38,7 @@ public class TurnManager : MonoBehaviour
         }
 
         foreach(Unit unit in loadUnitList){
+            unit.SetTM(this.GetComponent<TurnManager>());
             getPlayer(unit.getTeam()).AddUnit(unit);
         }
 
@@ -103,6 +104,10 @@ public class TurnManager : MonoBehaviour
             answer.AddRange(player.getAllUnits());
         }
         return answer;
+    }
+
+    public void ReferenceTest(){
+        Debug.Log("参照できてるよ");
     }
 
 }

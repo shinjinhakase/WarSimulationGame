@@ -12,6 +12,7 @@ public class Unit
     int maxHP;
     int HP;
     int ATK;
+    TurnManager tm;
 
     public Unit(string[] data,UnitStatusList usl){
         this.name = data[0];
@@ -61,6 +62,11 @@ public class Unit
 
     public bool getMoved(){
         return isMoved;
+    }
+
+    public void SetTM(TurnManager tm){
+        this.tm = tm;
+        tm.ReferenceTest();
     }
 
 }
