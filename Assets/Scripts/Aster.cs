@@ -8,22 +8,20 @@ public class Aster : MonoBehaviour
 
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tilemap characterMap;
-    [SerializeField] Vector3Int testStart;
-    [SerializeField] Vector3Int testGoal;
     List<Node> nodeList;
     Vector3Int startPosition;
     Vector3Int goalPosition;
+    Node startNode;
+    public void NodeSetUp(){
+        this.nodeList = NodeList();
+    }
 
-    public void CallDebug(){
-
-        nodeList = NodeList();
-
-        startPosition = testStart;
-        goalPosition = testGoal;
-
-        FirstNodeOpen(startPosition);
+    public List<Vector3Int> Route(Vector3Int start,Vector3Int goal){
+        startPosition = start;
+        goalPosition = goal;
+        startNode = new Node(startPosition);
         AroundNodeOpen(startPosition);
-        
+        return goalNode().Route(new List<Vector3Int>());
     }
 
     Node goalNode(){
@@ -66,16 +64,13 @@ public class Aster : MonoBehaviour
         if(pickupNode(down) != null && pickupNode(down).isOpened() == false){
             pickupNode(down).Open(pickupNode(baseNodePosition),startPosition);
         }
-        pickupNode(baseNodePosition).Close();
+        if(pickupNode(baseNodePosition) != null){
+            pickupNode(baseNodePosition).Close();
+        }
     }
 
     void FirstNodeOpen(Vector3Int startPosition){
-        foreach(Node node in nodeList){
-            if(startPosition == node.getPosition()){
-                node.Open(null,startPosition);
-                return;
-            }
-        }
+        
     }
 
     public List<Node> NodeList(){
@@ -149,6 +144,7 @@ public class Aster : MonoBehaviour
                 answer.Add(node);
             }
         }
+        answer.Add(startNode);
         return answer;
     }
 

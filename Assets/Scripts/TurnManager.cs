@@ -12,6 +12,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject DrawUnit;
     DrawUnit drawUnit;
     int turn;
+    [SerializeField] GameObject aster;
 
     void Start(){
         mapData = Map.GetComponent<Map>();
@@ -20,7 +21,7 @@ public class TurnManager : MonoBehaviour
         drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
         foreach(Unit unit in getAllUnits()){
-            unit.getEnemyTest();
+            unit.getNearestEnemyTest();
         }
     }
 
@@ -41,11 +42,12 @@ public class TurnManager : MonoBehaviour
         }
 
         foreach(Unit unit in loadUnitList){
-            unit.SetTM(this.GetComponent<TurnManager>());
+            unit.SetTM(this.GetComponent<TurnManager>(),aster.GetComponent<Aster>());
             getPlayer(unit.getTeam()).AddUnit(unit);
         }
 
         drawUnit.Draw(loadUnitList,this.GetComponent<TurnManager>());
+        aster.GetComponent<Aster>().NodeSetUp();
         turn = 0;
 
     }

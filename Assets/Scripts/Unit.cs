@@ -13,6 +13,7 @@ public class Unit
     int HP;
     int ATK;
     TurnManager tm;
+    Aster aster;
 
     public Unit(string[] data,UnitStatusList usl){
         this.name = data[0];
@@ -64,12 +65,21 @@ public class Unit
         return isMoved;
     }
 
-    public void SetTM(TurnManager tm){
+    public void SetTM(TurnManager tm,Aster aster){
         this.tm = tm;
+        this.aster = aster;
     }
 
-    public void getEnemyTest(){
-        Debug.Log(string.Join(",",tm.EnemyPositionList(this.team)));
+    public void getNearestEnemyTest(){
+        List<Vector3Int> routeNearestEnemy = null;
+        List<Vector3Int> epl = tm.EnemyPositionList(this.team);
+        foreach(Vector3Int ep in epl){
+            List<Vector3Int> routeEp = aster.Route(Position,ep);
+            if(routeNearestEnemy == null || routeEp.Count < routeNearestEnemy.Count){
+                routeNearestEnemy = routeEp;
+            }
+        }
+        Debug.Log(string.Join("→",routeNearestEnemy));
     }
 
 }
