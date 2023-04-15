@@ -8,37 +8,70 @@ public class Aster : MonoBehaviour
 
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tilemap characterMap;
-    [SerializeField] Vector3Int testVector;
+    [SerializeField] Vector3Int testStart;
+    [SerializeField] Vector3Int testGoal;
     List<Node> nodeList;
     Vector3Int startPosition;
+    Vector3Int goalPosition;
 
     public void CallDebug(){
+
         nodeList = NodeList();
-        startPosition = testVector;
+
+        startPosition = testStart;
+        goalPosition = testGoal;
+
         FirstNodeOpen(startPosition);
         AroundNodeOpen(startPosition);
-        foreach(Node node in OpenNodeList()){
-            Debug.Log(node.getX() + "," + node.getY());
+
+        Debug.Log("Start:" + startPosition);
+        Debug.Log("Goal:" + goalPosition);
+        Debug.Log("Route:" + string.Join(",",goalNode().Route(new List<Vector3Int>())));
+        
+    }
+
+    Node goalNode(){
+
+        List<Node> openNodeList = OpenNodeList();
+        foreach(Node node in openNodeList){
+            if(node.getPosition() == goalPosition){
+                Debug.Log("Goal Discovered!!");
+                return node;
+            }
         }
+
+        Node nextBaseNode = null;
+        foreach(Node node in openNodeList){
+            if(nextBaseNode == null){
+                nextBaseNode = node;
+            }
+            if(node.getScore() < nextBaseNode.getScore()){
+                nextBaseNode = node;
+            }
+        }
+        AroundNodeOpen(nextBaseNode.getPosition());
+        return goalNode();
+
     }
 
     void AroundNodeOpen(Vector3Int baseNodePosition){
         Vector3Int right = new Vector3Int(baseNodePosition.x + 1,baseNodePosition.y);
-        if(pickupNode(right) != null){
+        if(pickupNode(right) != null && pickupNode(right).isOpened() == false){
             pickupNode(right).Open(pickupNode(baseNodePosition),startPosition);
         }
         Vector3Int left = new Vector3Int(baseNodePosition.x - 1,baseNodePosition.y);
-        if(pickupNode(left) != null){
+        if(pickupNode(left) != null && pickupNode(left).isOpened() == false){
             pickupNode(left).Open(pickupNode(baseNodePosition),startPosition);
         }
         Vector3Int up = new Vector3Int(baseNodePosition.x,baseNodePosition.y + 1);
-        if(pickupNode(up) != null){
+        if(pickupNode(up) != null && pickupNode(up).isOpened() == false){
             pickupNode(up).Open(pickupNode(baseNodePosition),startPosition);
         }
         Vector3Int down = new Vector3Int(baseNodePosition.x,baseNodePosition.y - 1);
-        if(pickupNode(down) != null){
+        if(pickupNode(down) != null && pickupNode(down).isOpened() == false){
             pickupNode(down).Open(pickupNode(baseNodePosition),startPosition);
         }
+        pickupNode(baseNodePosition).Close();
     }
 
     void FirstNodeOpen(Vector3Int startPosition){
@@ -117,7 +150,7 @@ public class Aster : MonoBehaviour
     List<Node> OpenNodeList(){
         List<Node> answer = new List<Node>();
         foreach(Node node in nodeList){
-            if(node.isOpened()){
+            if(node.isOpenNow()){
                 answer.Add(node);
             }
         }

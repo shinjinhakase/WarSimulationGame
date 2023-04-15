@@ -60,4 +60,25 @@ public class Node{
         return true;
     }
 
+    public bool isOpenNow(){
+        if(status == Status.Open){
+            return true;
+        }
+        return false;
+    }
+
+    public void Close(){
+        this.status = Status.Closed;
+    }
+
+    public List<Vector3Int> Route(List<Vector3Int> routeList){
+        routeList.Add(this.getPosition());
+        if(this.parent == null){
+            routeList.Reverse();
+            return routeList;
+        }
+        parent.Route(routeList);
+        return routeList;
+    }
+
 }
