@@ -11,16 +11,22 @@ public class Aster : MonoBehaviour
     List<Node> nodeList;
     Vector3Int startPosition;
     Vector3Int goalPosition;
-    Node startNode;
+    Node startPositionNode;
+    Node goalPositionNode;
+
     public void NodeSetUp(){
         this.nodeList = NodeList();
     }
 
     public List<Vector3Int> Route(Vector3Int start,Vector3Int goal){
+        NodeSetUp();
         startPosition = start;
         goalPosition = goal;
-        startNode = new Node(startPosition);
+        startPositionNode = new Node(startPosition);
+        goalPositionNode = new Node(goalPosition);
         AroundNodeOpen(startPosition);
+        startPositionNode.Close();
+        nodeList.Add(goalPositionNode);
         return goalNode().Route(new List<Vector3Int>());
     }
 
@@ -69,10 +75,6 @@ public class Aster : MonoBehaviour
         }
     }
 
-    void FirstNodeOpen(Vector3Int startPosition){
-        
-    }
-
     public List<Node> NodeList(){
 
         List<Node> answer = new List<Node>();
@@ -92,8 +94,7 @@ public class Aster : MonoBehaviour
         List<Vector3Int> answer = new List<Vector3Int>();
 
         List<Vector3Int> ground = VectorList(groundMap);
-        List<Vector3Int> someoneHere = VectorList(characterMap);
-        
+        List<Vector3Int> someoneHere = VectorList(characterMap);//Debug.Log(string.Join("/",ground));
         foreach(Vector3Int pos in ground){
             bool flag = false;
             foreach(Vector3Int someone in someoneHere){
@@ -144,7 +145,6 @@ public class Aster : MonoBehaviour
                 answer.Add(node);
             }
         }
-        answer.Add(startNode);
         return answer;
     }
 

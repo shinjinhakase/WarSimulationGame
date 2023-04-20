@@ -5,7 +5,6 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] GameObject Map;
-    Map mapData;
     List<Player> playerList;
     [SerializeField] List<string> teamList;
     [SerializeField] GameObject LoadUnit;
@@ -13,14 +12,18 @@ public class TurnManager : MonoBehaviour
     DrawUnit drawUnit;
     int turn;
     [SerializeField] GameObject aster;
+    public static bool once;//テスト用変数
 
     void Start(){
-        mapData = Map.GetComponent<Map>();
         playerList = new List<Player>();
         teamList = new List<string>();
         drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
-        foreach(Unit unit in getAllUnits()){
+    }
+
+    public void AsterTest(){
+        aster.GetComponent<Aster>().NodeSetUp();
+        foreach(Unit unit in playerList[0].getAllUnits()){
             unit.getNearestEnemyTest();
         }
     }
@@ -47,7 +50,6 @@ public class TurnManager : MonoBehaviour
         }
 
         drawUnit.Draw(loadUnitList,this.GetComponent<TurnManager>());
-        aster.GetComponent<Aster>().NodeSetUp();
         turn = 0;
 
     }
@@ -61,6 +63,10 @@ public class TurnManager : MonoBehaviour
                 turn = 0;
             }
             moveReset();
+        }
+
+        if(once){
+            AsterTest();once=false;
         }
         
     }
