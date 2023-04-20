@@ -158,6 +158,7 @@ MonoBehaviour:
   - barbarian
   LoadUnit: {fileID: 1119572753}
   DrawUnit: {fileID: 711200150}
+  aster: {fileID: 1060393538}
 --- !u!4 &97730222
 Transform:
   m_ObjectHideFlags: 0
@@ -623,8 +624,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMap: {fileID: 1977010126}
   characterMap: {fileID: 1896683997}
-  testStart: {x: 3, y: 4, z: 0}
-  testGoal: {x: 5, y: 7, z: 0}
 --- !u!1 &1119572753
 GameObject:
   m_ObjectHideFlags: 0

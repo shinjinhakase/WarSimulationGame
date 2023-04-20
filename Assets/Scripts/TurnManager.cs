@@ -5,20 +5,27 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] GameObject Map;
-    Map mapData;
     List<Player> playerList;
     [SerializeField] List<string> teamList;
     [SerializeField] GameObject LoadUnit;
     [SerializeField] GameObject DrawUnit;
     DrawUnit drawUnit;
     int turn;
+    [SerializeField] GameObject aster;
+    public static bool once;//テスト用変数
 
     void Start(){
-        mapData = Map.GetComponent<Map>();
         playerList = new List<Player>();
         teamList = new List<string>();
         drawUnit = DrawUnit.GetComponent<DrawUnit>();
         InitSetUp();
+    }
+
+    public void AsterTest(){
+        aster.GetComponent<Aster>().NodeSetUp();
+        foreach(Unit unit in playerList[0].getAllUnits()){
+            unit.getNearestEnemyTest();
+        }
     }
 
     void InitSetUp(){
@@ -38,6 +45,7 @@ public class TurnManager : MonoBehaviour
         }
 
         foreach(Unit unit in loadUnitList){
+            unit.SetTM(this.GetComponent<TurnManager>(),aster.GetComponent<Aster>());
             getPlayer(unit.getTeam()).AddUnit(unit);
         }
 
@@ -55,6 +63,10 @@ public class TurnManager : MonoBehaviour
                 turn = 0;
             }
             moveReset();
+        }
+
+        if(once){
+            AsterTest();once=false;
         }
         
     }
@@ -101,6 +113,17 @@ public class TurnManager : MonoBehaviour
         List<Unit> answer = new List<Unit>();
         foreach(Player player in playerList){
             answer.AddRange(player.getAllUnits());
+        }
+        return answer;
+    }
+    
+    public List<Vector3Int> EnemyPositionList(string friend){
+        List<Vector3Int> answer = new List<Vector3Int>();
+        List<Unit> allUnits = getAllUnits();
+        foreach(Unit unit in allUnits){
+            if(unit.getTeam() != friend){
+                answer.Add(unit.getPosition());
+            }
         }
         return answer;
     }

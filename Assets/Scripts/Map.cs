@@ -23,7 +23,7 @@ public class Map : MonoBehaviour{
                 mapData[i,j] = "grass";
             }
         }
-        Aster.GetComponent<Aster>().CallDebug();
+        TurnManager.once = true;
     }
 
     public List<Vector3Int> isMovableList(Unit moveUnit){

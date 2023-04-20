@@ -8,26 +8,26 @@ public class Aster : MonoBehaviour
 
     [SerializeField] Tilemap groundMap;
     [SerializeField] Tilemap characterMap;
-    [SerializeField] Vector3Int testStart;
-    [SerializeField] Vector3Int testGoal;
     List<Node> nodeList;
     Vector3Int startPosition;
     Vector3Int goalPosition;
+    Node startPositionNode;
+    Node goalPositionNode;
 
-    public void CallDebug(){
+    public void NodeSetUp(){
+        this.nodeList = NodeList();
+    }
 
-        nodeList = NodeList();
-
-        startPosition = testStart;
-        goalPosition = testGoal;
-
-        FirstNodeOpen(startPosition);
+    public List<Vector3Int> Route(Vector3Int start,Vector3Int goal){
+        NodeSetUp();
+        startPosition = start;
+        goalPosition = goal;
+        startPositionNode = new Node(startPosition);
+        goalPositionNode = new Node(goalPosition);
         AroundNodeOpen(startPosition);
-
-        Debug.Log("Start:" + startPosition);
-        Debug.Log("Goal:" + goalPosition);
-        Debug.Log("Route:" + string.Join(",",goalNode().Route(new List<Vector3Int>())));
-        
+        startPositionNode.Close();
+        nodeList.Add(goalPositionNode);
+        return goalNode().Route(new List<Vector3Int>());
     }
 
     Node goalNode(){
@@ -35,7 +35,6 @@ public class Aster : MonoBehaviour
         List<Node> openNodeList = OpenNodeList();
         foreach(Node node in openNodeList){
             if(node.getPosition() == goalPosition){
-                Debug.Log("Goal Discovered!!");
                 return node;
             }
         }
@@ -71,15 +70,8 @@ public class Aster : MonoBehaviour
         if(pickupNode(down) != null && pickupNode(down).isOpened() == false){
             pickupNode(down).Open(pickupNode(baseNodePosition),startPosition);
         }
-        pickupNode(baseNodePosition).Close();
-    }
-
-    void FirstNodeOpen(Vector3Int startPosition){
-        foreach(Node node in nodeList){
-            if(startPosition == node.getPosition()){
-                node.Open(null,startPosition);
-                return;
-            }
+        if(pickupNode(baseNodePosition) != null){
+            pickupNode(baseNodePosition).Close();
         }
     }
 
@@ -102,8 +94,7 @@ public class Aster : MonoBehaviour
         List<Vector3Int> answer = new List<Vector3Int>();
 
         List<Vector3Int> ground = VectorList(groundMap);
-        List<Vector3Int> someoneHere = VectorList(characterMap);
-        
+        List<Vector3Int> someoneHere = VectorList(characterMap);//Debug.Log(string.Join("/",ground));
         foreach(Vector3Int pos in ground){
             bool flag = false;
             foreach(Vector3Int someone in someoneHere){
