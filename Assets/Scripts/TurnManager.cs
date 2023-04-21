@@ -11,8 +11,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject DrawUnit;
     DrawUnit drawUnit;
     int turn;
+    [SerializeField] GameObject cpuMove;
+    CPUMove cpum;
     [SerializeField] GameObject aster;
-    public static bool once;//テスト用変数
+    bool once;
 
     void Start(){
         playerList = new List<Player>();
@@ -21,10 +23,9 @@ public class TurnManager : MonoBehaviour
         InitSetUp();
     }
 
-    public void AsterTest(){
-        aster.GetComponent<Aster>().NodeSetUp();
+    void MoveTest(){Debug.Log("player discovered.");
         foreach(Unit unit in playerList[0].getAllUnits()){
-            unit.getNearestEnemyTest();
+            cpum.Move(unit);Debug.Log("move tried.");
         }
     }
 
@@ -64,9 +65,10 @@ public class TurnManager : MonoBehaviour
             }
             moveReset();
         }
-
-        if(once){
-            AsterTest();once=false;
+        if(!once){
+            cpum = cpuMove.GetComponent<CPUMove>();
+            MoveTest();
+            once = true;
         }
         
     }

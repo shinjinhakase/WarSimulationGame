@@ -70,7 +70,7 @@ public class Unit
         this.aster = aster;
     }
 
-    public void getNearestEnemyTest(){
+    public List<Vector3Int> getNearestEnemy(){
         List<Vector3Int> routeNearestEnemy = null;
         List<Vector3Int> epl = tm.EnemyPositionList(this.team);
         foreach(Vector3Int ep in epl){
@@ -79,7 +79,7 @@ public class Unit
                 routeNearestEnemy = routeEp;
             }
         }
-        Debug.Log(string.Join("→",routeNearestEnemy));
+        return routeNearestEnemy;
     }
 
 }

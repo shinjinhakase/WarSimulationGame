@@ -23,7 +23,6 @@ public class Map : MonoBehaviour{
                 mapData[i,j] = "grass";
             }
         }
-        TurnManager.once = true;
     }
 
     public List<Vector3Int> isMovableList(Unit moveUnit){
