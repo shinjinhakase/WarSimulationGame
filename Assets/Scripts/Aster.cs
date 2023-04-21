@@ -21,13 +21,24 @@ public class Aster : MonoBehaviour
     public List<Vector3Int> Route(Vector3Int start,Vector3Int goal){
         NodeSetUp();
         startPosition = start;
-        goalPosition = goal;
+        goalPosition = NormalizeGoal(goal);
         startPositionNode = new Node(startPosition);
         goalPositionNode = new Node(goalPosition);
         AroundNodeOpen(startPosition);
         startPositionNode.Close();
         nodeList.Add(goalPositionNode);
         return goalNode().Route(new List<Vector3Int>());
+    }
+
+    Vector3Int NormalizeGoal(Vector3Int trueGoal){
+        Vector3Int answer = trueGoal;
+        foreach(Node node in nodeList){
+            int ManhattanDistance = Mathf.Abs(trueGoal.x - node.getPosition().x) + Mathf.Abs(trueGoal.y - node.getPosition().y);
+            if(answer == trueGoal || ManhattanDistance == 1){
+                answer = node.getPosition();
+            }
+        }
+        return answer;
     }
 
     Node goalNode(){
