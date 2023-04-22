@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     CPUMove cpum;
     [SerializeField] GameObject aster;
     bool once;
+    public float cooltime;
 
     void Start(){
         playerList = new List<Player>();
@@ -73,15 +74,15 @@ public class TurnManager : MonoBehaviour
         }
 
         if(!once){
-            cpum = cpuMove.GetComponent<CPUMove>();
-            PlayerTest();Debug.Log(string.Join("/",EnemyPositionList(playerList[turn].getName())));
             once = true;
+            cpum = cpuMove.GetComponent<CPUMove>();
+            StartCoroutine(PlayerTest());Debug.Log(string.Join("/",EnemyPositionList(playerList[turn].getName())));
         }
         
     }
 
     
-    void PlayerTest(){
+    IEnumerator PlayerTest(){
         foreach(Unit unit in playerList[turn].getAllUnits()){
             if(unit.EnemyExistInReach() == null){
                 cpum.Move(unit);
@@ -91,10 +92,9 @@ public class TurnManager : MonoBehaviour
             }else{
                 Debug.Log(unit.getName() + " try attack ( before move ) " + unit.EnemyExistInReach().getName());
             }
+            yield return new WaitForSeconds(cooltime);
         }
     }
-
-
 
     public string getTurn(){
         return teamList[turn];
