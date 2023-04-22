@@ -23,21 +23,6 @@ public class TurnManager : MonoBehaviour
         InitSetUp();
     }
 
-    void MoveTest(){
-        foreach(Unit unit in playerList[0].getAllUnits()){
-            cpum.Move(unit);
-            if(unit.EnemyExistInReach() != null){
-                Debug.Log(unit.getName() + " try attack");
-            }
-        }
-        foreach(Unit unit in playerList[1].getAllUnits()){
-            cpum.Move(unit);
-            if(unit.EnemyExistInReach() != null){
-                Debug.Log(unit.getName() + " try attack");
-            }
-        }
-    }
-
     void InitSetUp(){
 
         LoadUnit loadUnit = LoadUnit.GetComponent<LoadUnit>();
@@ -74,13 +59,42 @@ public class TurnManager : MonoBehaviour
             }
             moveReset();
         }
+
+        if(Input.GetKeyUp(KeyCode.Space)){
+
+            if(turn < teamList.Count - 1){
+                turn++;
+            }else{
+                turn = 0;
+            }
+
+            once = false;
+
+        }
+
         if(!once){
             cpum = cpuMove.GetComponent<CPUMove>();
-            MoveTest();
+            PlayerTest();Debug.Log(string.Join("/",EnemyPositionList(playerList[turn].getName())));
             once = true;
         }
         
     }
+
+    
+    void PlayerTest(){
+        foreach(Unit unit in playerList[turn].getAllUnits()){
+            if(unit.EnemyExistInReach() == null){
+                cpum.Move(unit);
+                if(unit.EnemyExistInReach() != null){
+                    Debug.Log(unit.getName() + " try attack " + unit.EnemyExistInReach().getName());
+                }
+            }else{
+                Debug.Log(unit.getName() + " try attack ( before move ) " + unit.EnemyExistInReach().getName());
+            }
+        }
+    }
+
+
 
     public string getTurn(){
         return teamList[turn];
@@ -111,7 +125,12 @@ public class TurnManager : MonoBehaviour
     }
 
     public Unit getUnit(Vector3Int position){
-        return getPlayer(getTurn()).getMyUnits(position);
+        foreach(Player player in playerList){
+            if(player.getMyUnits(position) != null){
+                return player.getMyUnits(position);
+            }
+        }
+        return null;
     }
 
     void moveReset(){
