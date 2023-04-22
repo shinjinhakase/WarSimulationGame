@@ -12,15 +12,18 @@ public class Map : MonoBehaviour{
     [SerializeField] Tile ground;
     [SerializeField] Tilemap unitMap;
     [SerializeField] GameObject Aster;
+    List<Vector3Int> AGPCache;
 
     // Start is called before the first frame update
     void Start()
     {
         mapData = new string[maxX,maxY];
+        AGPCache = new List<Vector3Int>();
         for(int i = 0; i < maxX; i++){
             for(int j = 0; j < maxY; j++){
                 groundMap.SetTile(new Vector3Int(i,j,0),ground);
                 mapData[i,j] = "grass";
+                AGPCache.Add(new Vector3Int(i,j,0));
             }
         }
     }
@@ -45,6 +48,10 @@ public class Map : MonoBehaviour{
         
         return MovableTileList;
 
+    }
+
+    public List<Vector3Int> AllGroundPosition(){
+        return AGPCache;
     }
 
 }

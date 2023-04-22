@@ -6,6 +6,7 @@ public class Unit
 {
     string name;
     int speed = 4;
+    int reach = 1;
     string team;
     Vector3Int Position;
     bool isMoved;
@@ -39,6 +40,10 @@ public class Unit
 
     public int getSpeed(){
         return speed;
+    }
+
+    public int getreach(){
+        return reach;
     }
 
     public string getTeam(){
@@ -80,6 +85,17 @@ public class Unit
             }
         }
         return routeNearestEnemy;
+    }
+
+    public Unit EnemyExistInReach(){
+        List<Vector3Int> epl = tm.EnemyPositionList(this.team);
+        Manhattan calc = new Manhattan();
+        foreach(Vector3Int ep in epl){
+            if(calc.Distance(ep,this.Position) == reach){
+                return tm.getUnit(ep);
+            }
+        }
+        return null;
     }
 
 }

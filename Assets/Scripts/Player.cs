@@ -6,10 +6,14 @@ public class Player
 {
     List<Unit> myUnits;
     string team;
+    GameObject map;
+    TurnManager tm;
     
-    public Player(string team){
+    public Player(string team,GameObject map,TurnManager tm){
         this.team = team;
         myUnits = new List<Unit>();
+        this.map = map;
+        this.tm = tm;
     }
 
     public void AddUnit(Unit unit){
