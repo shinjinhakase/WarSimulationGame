@@ -19,11 +19,11 @@ public class Unit
     public Unit(string[] data,UnitStatusList usl){
         this.name = data[0];
         this.team = data[1];
-        foreach(UnitStatus us in usl.unitStatusList){
-            if(us.team == this.team){
-                maxHP = Random.Range(us.minHP,us.maxHP);
+        foreach(UnitStatus us in usl.unitStatusList){Debug.Log("us.team:"+us.getTeam()+" this.team:"+this.team);
+            if(us.getTeam() == this.team){
+                maxHP = Random.Range(us.getMinHP(),us.getMaxHP());
                 HP = maxHP;
-                ATK = Random.Range(us.minATK,us.maxATK);
+                ATK = Random.Range(us.getMinATK(),us.getMaxATK());
             }
         }
         Position = new Vector3Int(
@@ -96,6 +96,22 @@ public class Unit
             }
         }
         return null;
+    }
+
+    public int getHP(){
+        return HP;
+    }
+
+    public int getATK(){
+        return ATK;
+    }
+
+    public int getMaxHP(){
+        return maxHP;
+    }
+
+    public void Damage(int damage){
+        this.HP -= damage;
     }
 
 }

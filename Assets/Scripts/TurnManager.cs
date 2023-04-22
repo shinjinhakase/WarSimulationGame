@@ -16,6 +16,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] GameObject aster;
     bool once;
     public float cooltime;
+    [SerializeField] GameObject DamageCalc;
 
     void Start(){
         playerList = new List<Player>();
@@ -76,21 +77,22 @@ public class TurnManager : MonoBehaviour
         if(!once){
             once = true;
             cpum = cpuMove.GetComponent<CPUMove>();
-            StartCoroutine(PlayerTest());Debug.Log(string.Join("/",EnemyPositionList(playerList[turn].getName())));
+            StartCoroutine(PlayerTest());
         }
         
     }
 
     
     IEnumerator PlayerTest(){
+        DamageCalc DC = DamageCalc.GetComponent<DamageCalc>();
         foreach(Unit unit in playerList[turn].getAllUnits()){
             if(unit.EnemyExistInReach() == null){
                 cpum.Move(unit);
                 if(unit.EnemyExistInReach() != null){
-                    Debug.Log(unit.getName() + " try attack " + unit.EnemyExistInReach().getName());
+                    DC.Attack(unit,unit.EnemyExistInReach());
                 }
             }else{
-                Debug.Log(unit.getName() + " try attack ( before move ) " + unit.EnemyExistInReach().getName());
+                DC.Attack(unit,unit.EnemyExistInReach());
             }
             yield return new WaitForSeconds(cooltime);
         }

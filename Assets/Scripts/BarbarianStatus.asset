@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a23313fe02c7444fbedfb4340f8c5c2, type: 3}
   m_Name: BarbarianStatus
   m_EditorClassIdentifier: 
-  team: 
+  team: barbarian
   minHP: 14
   maxHP: 25
   minATK: 5
