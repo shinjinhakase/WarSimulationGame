@@ -105,7 +105,7 @@ public class Aster : MonoBehaviour
         List<Vector3Int> answer = new List<Vector3Int>();
 
         List<Vector3Int> ground = VectorList(groundMap);
-        List<Vector3Int> someoneHere = VectorList(characterMap);//Debug.Log(string.Join("/",ground));
+        List<Vector3Int> someoneHere = VectorList(characterMap);
         foreach(Vector3Int pos in ground){
             bool flag = false;
             foreach(Vector3Int someone in someoneHere){

@@ -21,7 +21,6 @@ public class Godfather : MonoBehaviour
         for(int i = 0; i < 100; i++){
             testNames.Add(GenerateName());
         }
-        Debug.Log(string.Join("\n",testNames));
 
     }
 

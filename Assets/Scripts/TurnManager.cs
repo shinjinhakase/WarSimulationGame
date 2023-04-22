@@ -23,9 +23,18 @@ public class TurnManager : MonoBehaviour
         InitSetUp();
     }
 
-    void MoveTest(){Debug.Log("player discovered.");
+    void MoveTest(){
         foreach(Unit unit in playerList[0].getAllUnits()){
-            cpum.Move(unit);Debug.Log("move tried.");
+            cpum.Move(unit);
+            if(unit.EnemyExistInReach() != null){
+                Debug.Log(unit.getName() + " try attack");
+            }
+        }
+        foreach(Unit unit in playerList[1].getAllUnits()){
+            cpum.Move(unit);
+            if(unit.EnemyExistInReach() != null){
+                Debug.Log(unit.getName() + " try attack");
+            }
         }
     }
 
@@ -41,7 +50,7 @@ public class TurnManager : MonoBehaviour
         }
 
         foreach(string teamName in teamList){
-            Player player = new Player(teamName);
+            Player player = new Player(teamName,Map,this.GetComponent<TurnManager>());
             playerList.Add(player);
         }
 
