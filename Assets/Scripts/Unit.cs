@@ -90,7 +90,7 @@ public class Unit
     public Unit EnemyExistInReach(){
         List<Vector3Int> epl = tm.EnemyPositionList(this.team);
         Manhattan calc = new Manhattan();
-        foreach(Vector3Int ep in epl){Debug.Log(this.name + " distance " + tm.getUnit(ep).getName() + " " + calc.Distance(ep,this.Position));
+        foreach(Vector3Int ep in epl){
             if(calc.Distance(ep,this.Position) == reach){
                 return tm.getUnit(ep);
             }
