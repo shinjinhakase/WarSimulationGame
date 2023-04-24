@@ -19,7 +19,7 @@ public class Unit
     public Unit(string[] data,UnitStatusList usl){
         this.name = data[0];
         this.team = data[1];
-        foreach(UnitStatus us in usl.unitStatusList){Debug.Log("us.team:"+us.getTeam()+" this.team:"+this.team);
+        foreach(UnitStatus us in usl.unitStatusList){
             if(us.getTeam() == this.team){
                 maxHP = Random.Range(us.getMinHP(),us.getMaxHP());
                 HP = maxHP;
