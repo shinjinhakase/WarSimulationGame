@@ -12,17 +12,15 @@ public class DamageCalc : MonoBehaviour {
         this.tm = tm;
     }
     
-    public void Attack(Unit attacker,Unit difender){
+    public IEnumerator Attack(Unit attacker,Unit difender){
+        yield return new WaitForSeconds(1);
         difender.Damage(attacker.getATK());
         if(difender.getHP() < 0){
-            Debug.Log(difender.getName() + "は息絶えた!");
             DeadUnit(difender);
-            return;
         }else{
-            StartCoroutine(wait());
+            yield return new WaitForSeconds(1);
             attacker.Damage(difender.getATK());
             if(attacker.getHP() < 0){
-                Debug.Log(attacker.getName() + "は息絶えた!");
                 DeadUnit(attacker);
             }
         }
@@ -32,10 +30,6 @@ public class DamageCalc : MonoBehaviour {
     public void DeadUnit(Unit deadUnit){
         charaSheet.SetTile(deadUnit.getPosition(),null);
         tm.getPlayer(deadUnit.getTeam()).DeadUnit(deadUnit);
-    }
-
-    IEnumerator wait(){
-        yield return new WaitForSeconds(1);
     }
 
 }

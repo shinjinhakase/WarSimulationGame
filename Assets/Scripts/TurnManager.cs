@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
@@ -53,14 +54,16 @@ public class TurnManager : MonoBehaviour
 
     void Update(){
 
-        if(Input.GetKeyUp(KeyCode.T)){
-            if(turn < teamList.Count - 1){
-                turn++;
-            }else{
-                turn = 0;
+        /*プレイヤーがいるときのみ使用
+            if(Input.GetKeyUp(KeyCode.T)){
+                if(turn < teamList.Count - 1){
+                    turn++;
+                }else{
+                    turn = 0;
+                }
+                moveReset();
             }
-            moveReset();
-        }
+        */
 
         if(Input.GetKeyUp(KeyCode.Space)){
 
@@ -86,14 +89,15 @@ public class TurnManager : MonoBehaviour
     IEnumerator PlayerTest(){
         DamageCalc DC = DamageCalc.GetComponent<DamageCalc>();
         DC.setTM(this.GetComponent<TurnManager>());
-        foreach(Unit unit in playerList[turn].getAllUnits()){
+        foreach(Unit unit in playerList[turn].getAllUnits().ToList()){
+            if(getUnit(unit.getPosition()) == null) continue;
             if(unit.EnemyExistInReach() == null){
                 cpum.Move(unit);
                 if(unit.EnemyExistInReach() != null){
-                    DC.Attack(unit,unit.EnemyExistInReach());
+                    yield return StartCoroutine(DC.Attack(unit,unit.EnemyExistInReach()));
                 }
             }else{
-                DC.Attack(unit,unit.EnemyExistInReach());
+                yield return StartCoroutine(DC.Attack(unit,unit.EnemyExistInReach()));
             }
             yield return new WaitForSeconds(cooltime);
         }
