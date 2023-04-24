@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoadUnit : MonoBehaviour
 {
     [SerializeField] UnitStatusList usl;
+    [SerializeField] Slider HPBar;
+    [SerializeField] Canvas canvas;
     
     public List<Unit> Load(){
 
@@ -17,6 +20,8 @@ public class LoadUnit : MonoBehaviour
 
             string[] UnitData = loadUnit[i].Split(char.Parse(","));
             Unit unit = new Unit(UnitData,usl);
+            Slider hpbar = Instantiate(HPBar,canvas.transform);
+            hpbar.GetComponent<HPBar>().setUnit(unit);
             answer.Add(unit);
 
         }
