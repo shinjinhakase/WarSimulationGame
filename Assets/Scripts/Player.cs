@@ -49,4 +49,13 @@ public class Player
         return myUnits;
     }
 
+    public void DeadUnit(Unit unit){
+        for(int i = 0; i < myUnits.Count; i++){
+            if(unit.getPosition() == myUnits[i].getPosition()){
+                myUnits.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
 }

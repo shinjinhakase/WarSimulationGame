@@ -85,6 +85,7 @@ public class TurnManager : MonoBehaviour
     
     IEnumerator PlayerTest(){
         DamageCalc DC = DamageCalc.GetComponent<DamageCalc>();
+        DC.setTM(this.GetComponent<TurnManager>());
         foreach(Unit unit in playerList[turn].getAllUnits()){
             if(unit.EnemyExistInReach() == null){
                 cpum.Move(unit);
