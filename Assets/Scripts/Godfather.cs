@@ -4,7 +4,6 @@ using UnityEngine;
 using System.IO;
 public class Godfather : MonoBehaviour
 {
-    public int people;
     List<string> littleChars = new List<string>(){"ャ","ュ","ョ","ァ","ィ","ゥ","ェ","ォ"};
     List<string> headInvalid = new List<string>(){"ー","ン","ッ"};
 	void Start(){
@@ -15,15 +14,25 @@ public class Godfather : MonoBehaviour
 
         string path = Application.dataPath + "/Resources/dataset.txt";
         File.WriteAllText(path,param);
-        */
+        
         
         List<string> testNames = new List<string>();
         for(int i = 0; i < 100; i++){
             testNames.Add(GenerateName());
         }
+        */
 
     }
 
+    public List<string> GenerateNames(int people){
+        List<string> answer = new List<string>();
+        for(int i = 0; i < people; i++){
+            answer.Add(GenerateName());
+        }
+        return answer;
+    }
+
+    /*
     void SimpleGenerate(){
 
         List<int> nameLengthList = new List<int>();
@@ -54,6 +63,7 @@ public class Godfather : MonoBehaviour
 		}
 
     }
+    */
 
     List<string> Load(string assetName){
 

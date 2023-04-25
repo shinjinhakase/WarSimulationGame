@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class TurnManager : MonoBehaviour
     bool once;
     public float cooltime;
     [SerializeField] GameObject DamageCalc;
+    [SerializeField] Text turnUnit;
 
     void Start(){
         playerList = new List<Player>();
@@ -91,6 +93,7 @@ public class TurnManager : MonoBehaviour
         DC.setTM(this.GetComponent<TurnManager>());
         foreach(Unit unit in playerList[turn].getAllUnits().ToList()){
             if(getUnit(unit.getPosition()) == null) continue;
+            turnUnit.text = unit.getTeam() + "陣営/" +unit.getName() + "の戦術";
             if(unit.EnemyExistInReach() == null){
                 cpum.Move(unit);
                 if(unit.EnemyExistInReach() != null){

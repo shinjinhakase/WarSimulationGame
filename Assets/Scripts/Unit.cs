@@ -17,7 +17,6 @@ public class Unit
     Aster aster;
 
     public Unit(string[] data,UnitStatusList usl){
-        this.name = data[0];
         this.team = data[1];
         foreach(UnitStatus us in usl.unitStatusList){
             if(us.getTeam() == this.team){
@@ -32,6 +31,10 @@ public class Unit
             0
         );
         isMoved = false;
+    }
+
+    public void setName(string newName){
+        this.name = newName;
     }
 
     public string getName(){
